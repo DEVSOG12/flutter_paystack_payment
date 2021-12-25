@@ -71,10 +71,10 @@ class CardRequestBody extends BaseRequestBody {
     if (bearer == null) return null;
     String? bearerStr;
     switch (bearer) {
-      case Bearer.SubAccount:
+      case Bearer.subAccount:
         bearerStr = "subaccount";
         break;
-      case Bearer.Account:
+      case Bearer.account:
         bearerStr = "account";
         break;
     }

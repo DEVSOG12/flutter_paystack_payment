@@ -1,8 +1,11 @@
 // import 'dart:io';
 // import 'devic';
-import 'package:device_info/device_info.dart';
+import 'dart:io';
 
-import 'package:platform_info/platform_info.dart';
+import 'package:device_info/device_info.dart';
+import 'package:flutter/foundation.dart';
+
+import 'package:platform_info/platform_info.dart' as platforminfo;
 
 import 'package:package_info_plus/package_info_plus.dart';
 // import 'package:flutter/services.dart';
@@ -19,13 +22,21 @@ class PlatformInfo {
   static Future<PlatformInfo?> getinfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    final platform = Platform.instance.operatingSystem;
-    var deviceInfo = await DeviceInfoPlugin().androidInfo;
+    final platform = platforminfo.Platform.instance.operatingSystem;
+    var mobilephoneinfo;
+    deviceInfo() async {
+      if (!kIsWeb) {
+        Platform.isIOS
+            ? mobilephoneinfo = await DeviceInfoPlugin().iosInfo
+            : mobilephoneinfo = await DeviceInfoPlugin().androidInfo;
+      }
+    }
+
     String pluginVersion = packageInfo.version;
     // : Platform.instance.isIOS
     //     ? DeviceInfoPlugin().iosInfo
     //     : "NOT MOBILE";
-    String deviceId = deviceInfo.id;
+    String deviceId = !kIsWeb ? mobilephoneinfo.toString() : "WEB";
     String userAgent = "${platform}_Paystack_$pluginVersion";
     return PlatformInfo._(
       userAgent: userAgent,

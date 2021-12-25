@@ -61,34 +61,34 @@ class BankTransactionManager extends BaseTransactionManager {
 
   @override
   Future<CheckoutResponse> handleApiResponse(
-      TransactionApiResponse response) async {
-    var auth = response.auth;
+      TransactionApiResponse apiResponse) async {
+    var auth = apiResponse.auth;
 
-    if (response.status == 'success') {
+    if (apiResponse.status == 'success') {
       setProcessingOff();
       return onSuccess(transaction);
     }
 
     if (auth == 'failed' || auth == 'timeout') {
-      return notifyProcessingError(ChargeException(response.message));
+      return notifyProcessingError(ChargeException(apiResponse.message));
     }
 
     if (auth == 'birthday') {
-      return getBirthdayFrmUI(response);
+      return getBirthdayFrmUI(apiResponse);
     }
 
     if (auth == 'payment_token' || auth == 'registration_token') {
-      return getOtpFrmUI(response: response);
+      return getOtpFrmUI(response: apiResponse);
     }
 
     return notifyProcessingError(
-        PaystackException(response.message ?? Strings.unKnownResponse));
+        PaystackException(apiResponse.message ?? Strings.unKnownResponse));
   }
 
   @override
   Future<CheckoutResponse> handleOtpInput(
-      String token, TransactionApiResponse? response) {
-    chargeRequestBody!.token = token;
+      String otp, TransactionApiResponse? response) {
+    chargeRequestBody!.token = otp;
     return _sendTokenToServer();
   }
 

@@ -21,20 +21,21 @@ class BankCheckout extends StatefulWidget {
   final BankServiceContract service;
   final String publicKey;
 
-  BankCheckout({
+  const BankCheckout({
+    Key? key,
     required this.charge,
     required this.onResponse,
     required this.onProcessingChange,
     required this.service,
     required this.publicKey,
-  });
+  }) : super(key: key);
 
   @override
   _BankCheckoutState createState() => _BankCheckoutState(onResponse);
 }
 
 class _BankCheckoutState extends BaseCheckoutMethodState<BankCheckout> {
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   late AnimationController _controller;
   late Animation<double> _animation;
   var _autoValidate = AutovalidateMode.disabled;
@@ -82,7 +83,7 @@ class _BankCheckoutState extends BaseCheckoutMethodState<BankCheckout> {
                   width: 50.0,
                   height: 50.0,
                   margin: const EdgeInsets.symmetric(vertical: 30.0),
-                  child: CircularProgressIndicator(
+                  child: const CircularProgressIndicator(
                     strokeWidth: 3.0,
                   ),
                 ),
@@ -105,96 +106,94 @@ class _BankCheckoutState extends BaseCheckoutMethodState<BankCheckout> {
 
   Widget _getCompleteUI(List<Bank> banks) {
     var container = Container();
-    return Container(
-      child: Form(
-        autovalidateMode: _autoValidate,
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            SizedBox(
-              height: 10.0,
-            ),
+    return Form(
+      autovalidateMode: _autoValidate,
+      key: _formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const SizedBox(
+            height: 10.0,
+          ),
+          _currentBank == null
+              ? const Icon(
+                  Icons.account_balance,
+                  color: Colors.black,
+                  size: 35.0,
+                )
+              : container,
+          _currentBank == null
+              ? const SizedBox(
+                  height: 20.0,
+                )
+              : container,
+          Text(
             _currentBank == null
-                ? Icon(
-                    Icons.account_balance,
-                    color: Colors.black,
-                    size: 35.0,
-                  )
-                : container,
-            _currentBank == null
-                ? SizedBox(
-                    height: 20.0,
-                  )
-                : container,
-            Text(
-              _currentBank == null
-                  ? 'Choose your bank to start the payment'
-                  : 'Enter your acccount number',
-              style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14.0,
-                  color: Colors.black),
+                ? 'Choose your bank to start the payment'
+                : 'Enter your acccount number',
+            style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 14.0,
+                color: Colors.black),
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          DropdownButtonHideUnderline(
+              child: InputDecorator(
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              isDense: true,
+              enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey, width: 0.5)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                      width: 1.0)),
+              hintText: 'Tap here to choose',
             ),
-            SizedBox(
-              height: 20.0,
+            isEmpty: _currentBank == null,
+            child: DropdownButton<Bank>(
+              value: _currentBank,
+              isDense: true,
+              onChanged: (Bank? newValue) {
+                setState(() {
+                  _currentBank = newValue;
+                  _controller.forward();
+                });
+              },
+              items: banks.map((Bank value) {
+                return DropdownMenuItem<Bank>(
+                  value: value,
+                  child: Text(value.name!),
+                );
+              }).toList(),
             ),
-            DropdownButtonHideUnderline(
-                child: InputDecorator(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                isDense: true,
-                enabledBorder: const OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.grey, width: 0.5)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Theme.of(context).accentColor, width: 1.0)),
-                hintText: 'Tap here to choose',
-              ),
-              isEmpty: _currentBank == null,
-              child: DropdownButton<Bank>(
-                value: _currentBank,
-                isDense: true,
-                onChanged: (Bank? newValue) {
-                  setState(() {
-                    _currentBank = newValue;
-                    _controller.forward();
-                  });
-                },
-                items: banks.map((Bank value) {
-                  return DropdownMenuItem<Bank>(
-                    value: value,
-                    child: Text(value.name!),
-                  );
-                }).toList(),
-              ),
-            )),
-            ScaleTransition(
-              scale: _animation,
-              child: _currentBank == null
-                  ? container
-                  : Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 15.0,
-                        ),
-                        AccountField(
-                            onSaved: (String? value) =>
-                                _account = BankAccount(_currentBank, value)),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        AccentButton(
-                            onPressed: _validateInputs,
-                            showProgress: _loading,
-                            text: 'Verify Account')
-                      ],
-                    ),
-            ),
-          ],
-        ),
+          )),
+          ScaleTransition(
+            scale: _animation,
+            child: _currentBank == null
+                ? container
+                : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 15.0,
+                      ),
+                      AccountField(
+                          onSaved: (String? value) =>
+                              _account = BankAccount(_currentBank, value)),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      AccentButton(
+                          onPressed: _validateInputs,
+                          showProgress: _loading,
+                          text: 'Verify Account')
+                    ],
+                  ),
+          ),
+        ],
       ),
     );
   }

@@ -31,7 +31,7 @@ class Charge {
   String? currency;
   int? transactionCharge;
 
-  /// Who bears Paystack charges? [Bearer.Account] or [Bearer.SubAccount]
+  /// Who bears Paystack charges? [Bearer.account] or [Bearer.subAccount]
   Bearer? bearer;
 
   String? subAccount;
@@ -88,6 +88,6 @@ class Charge {
 }
 
 enum Bearer {
-  Account,
-  SubAccount,
+  account,
+  subAccount,
 }

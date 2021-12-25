@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/models/checkout_response.dart';
 
@@ -35,29 +36,8 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
 
     var text = Text(confirmationMessage);
 
-    var dialog = Platform.isIOS
-        ? CupertinoAlertDialog(
-            content: text,
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: const Text('Yes'),
-                isDestructiveAction: true,
-                onPressed: () {
-                  Navigator.pop(context, true); // Returning true to
-                  // _onWillPop will pop again.
-                },
-              ),
-              CupertinoDialogAction(
-                child: const Text('No'),
-                isDefaultAction: true,
-                onPressed: () {
-                  Navigator.pop(context,
-                      false); // Pops the confirmation dialog but not the page.
-                },
-              ),
-            ],
-          )
-        : AlertDialog(
+    var dialog = kIsWeb
+        ? AlertDialog(
             content: text,
             actions: <Widget>[
               TextButton(
@@ -73,7 +53,46 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
                         true); // Returning true to _onWillPop will pop again.
                   })
             ],
-          );
+          )
+        : Platform.isIOS
+            ? CupertinoAlertDialog(
+                content: text,
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: const Text('Yes'),
+                    isDestructiveAction: true,
+                    onPressed: () {
+                      Navigator.pop(context, true); // Returning true to
+                      // _onWillPop will pop again.
+                    },
+                  ),
+                  CupertinoDialogAction(
+                    child: const Text('No'),
+                    isDefaultAction: true,
+                    onPressed: () {
+                      Navigator.pop(context,
+                          false); // Pops the confirmation dialog but not the page.
+                    },
+                  ),
+                ],
+              )
+            : AlertDialog(
+                content: text,
+                actions: <Widget>[
+                  TextButton(
+                      child: const Text('NO'),
+                      onPressed: () {
+                        Navigator.of(context).pop(
+                            false); // Pops the confirmation dialog but not the page.
+                      }),
+                  TextButton(
+                      child: const Text('YES'),
+                      onPressed: () {
+                        Navigator.of(context).pop(
+                            true); // Returning true to _onWillPop will pop again.
+                      })
+                ],
+              );
 
     bool exit = await showDialog<bool>(
           context: context,

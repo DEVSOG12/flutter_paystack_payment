@@ -21,7 +21,7 @@ class CardCheckout extends StatefulWidget {
   final CardServiceContract service;
   final String publicKey;
 
-  CardCheckout({
+  const CardCheckout({
     Key? key,
     required this.charge,
     required this.onResponse,
@@ -51,16 +51,16 @@ class _CardCheckoutState extends BaseCheckoutMethodState<CardCheckout> {
       alignment: Alignment.center,
       child: Column(
         children: <Widget>[
-          Text(
+          const Text(
             Strings.cardInputInstruction,
             key: Key("InstructionKey"),
-            style: const TextStyle(fontWeight: FontWeight.w500),
+            style: TextStyle(fontWeight: FontWeight.w500),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20.0,
           ),
           CardInput(
-            key: Key("CardInput"),
+            key: const Key("CardInput"),
             buttonText: widget.hideAmount ? "Continue" : 'Pay $amountText',
             card: _charge.card,
             onValidated: _onCardValidated,

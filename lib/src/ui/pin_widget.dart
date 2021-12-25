@@ -6,6 +6,8 @@ import 'package:flutter_paystack_payment/src/ui/input/pin_field.dart';
 import 'buttons.dart';
 
 class PinWidget extends StatefulWidget {
+  const PinWidget({Key? key}) : super(key: key);
+
   @override
   _PinWidgetState createState() => _PinWidgetState();
 }
@@ -35,7 +37,7 @@ class _PinWidgetState extends BaseState<PinWidget> {
                 'To confirm you\'re the owner of this card, please '
                 'enter your card pin.',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: Colors.black87,
                   fontSize: 15.0,
@@ -75,7 +77,7 @@ class _PinWidgetState extends BaseState<PinWidget> {
         children: List.generate(
             _startCount,
             (i) => star(i == (_startCount - 1)
-                ? Theme.of(context).accentColor
+                ? Theme.of(context).colorScheme.secondary
                 : Theme.of(context).primaryColorLight)),
       ),
     );

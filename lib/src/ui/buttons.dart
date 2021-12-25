@@ -34,7 +34,7 @@ class AccentButton extends StatelessWidget {
   final String text;
   final bool showProgress;
 
-  AccentButton({
+  const AccentButton({
     Key? key,
     required this.onPressed,
     required this.text,
@@ -46,7 +46,7 @@ class AccentButton extends StatelessWidget {
     return _BaseButton(
       onPressed: onPressed,
       showProgress: showProgress,
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
       borderSide: BorderSide.none,
       textStyle: const TextStyle(
           fontSize: 14.0, color: Colors.white, fontWeight: FontWeight.bold),
@@ -65,7 +65,7 @@ class _BaseButton extends StatelessWidget {
   final IconData? iconData;
   final Widget? child;
 
-  _BaseButton({
+  const _BaseButton({
     required this.onPressed,
     required this.showProgress,
     required this.text,
@@ -78,8 +78,8 @@ class _BaseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const borderRadius = const BorderRadius.all(Radius.circular(5.0));
-    var textWidget;
+    const borderRadius = BorderRadius.all(Radius.circular(5.0));
+    Text? textWidget;
     if (text != null) {
       textWidget = Text(
         text!,
@@ -95,25 +95,26 @@ class _BaseButton extends StatelessWidget {
           borderRadius: borderRadius,
           color: color,
         ),
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: TextButton(
               onPressed: showProgress ? null : onPressed,
               child: showProgress
-                  ? Container(
+                  ? SizedBox(
                       width: 20.0,
                       height: 20.0,
                       child: Theme(
-                          data: Theme.of(context)
-                              .copyWith(accentColor: Colors.white),
-                          child: CircularProgressIndicator(
+                          data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.fromSwatch()
+                                  .copyWith(secondary: Colors.white)),
+                          child: const CircularProgressIndicator(
                             strokeWidth: 2.0,
                           )),
                     )
                   : iconData == null
                       ? child == null
-                          ? textWidget
+                          ? textWidget!
                           : child!
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +124,7 @@ class _BaseButton extends StatelessWidget {
                               color: textStyle.color!.withOpacity(0.5),
                             ),
                             const SizedBox(width: 2.0),
-                            textWidget,
+                            textWidget!,
                           ],
                         )),
         ));

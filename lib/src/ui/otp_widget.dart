@@ -8,14 +8,14 @@ import 'buttons.dart';
 class OtpWidget extends StatefulWidget {
   final String? message;
 
-  OtpWidget({required this.message});
+  const OtpWidget({Key? key, required this.message}) : super(key: key);
 
   @override
   _OtpWidgetState createState() => _OtpWidgetState();
 }
 
 class _OtpWidgetState extends BaseState<OtpWidget> {
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   var _autoValidate = AutovalidateMode.disabled;
   String? _otp;
   var heightBox = const SizedBox(height: 20.0);
@@ -47,10 +47,10 @@ class _OtpWidgetState extends BaseState<OtpWidget> {
                 ),
                 heightBox,
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: OtpField(
                     onSaved: (String? value) => _otp = value,
-                    borderColor: Theme.of(context).accentColor,
+                    borderColor: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 heightBox,

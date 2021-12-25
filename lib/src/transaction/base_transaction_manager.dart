@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_paystack_payment/src/ui/birthday_widget.dart';
 import 'package:flutter_paystack_payment/src/ui/card_widget.dart';
 import 'package:flutter_paystack_payment/src/ui/otp_widget.dart';
 import 'package:flutter_paystack_payment/src/ui/pin_widget.dart';
+import 'package:flutter_paystack_payment/src/ui/webview.dart';
 
 abstract class BaseTransactionManager {
   bool processing = false;
@@ -79,7 +81,7 @@ abstract class BaseTransactionManager {
         card: charge.card?..nullifyNumber(),
         account: charge.account,
         method: checkoutMethod(),
-        verify: !(e is PaystackException));
+        verify: e is! PaystackException);
   }
 
   setProcessingOff() => processing = false;
@@ -107,6 +109,7 @@ abstract class BaseTransactionManager {
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) => OtpWidget(
+            // ignore: unnecessary_null_comparison
             message: message! != null
                 ? message
                 : response!.displayText == null || response.displayText!.isEmpty
@@ -122,20 +125,41 @@ abstract class BaseTransactionManager {
   }
 
   Future<CheckoutResponse> getAuthFrmUI(String? url) async {
+    String? result = "";
     TransactionApiResponse apiResponse =
         TransactionApiResponse.unknownServerResponse();
 
-    /// TODO Auth URL
-    String result = "";
-    // await Utils.methodChannel
-    //     .invokeMethod<String>('getAuthorization', {"authUrl": url});
-
-    if (result != "") {
+    Future<void> doit({String? result}) async {
       try {
-        Map<String, dynamic> responseMap = json.decode(result);
+        log(json.decode(result!));
+
+        Map<String, dynamic> responseMap = json.decode(json.decode(result));
         apiResponse = TransactionApiResponse.fromMap(responseMap);
-      } catch (e) {}
+      } catch (e) {
+        log(e.toString());
+      }
     }
+
+    await showDialog(
+        context: context,
+        builder: (_) {
+          // Future
+          return Dialog(
+            child: Builder(builder: (context) {
+              return WebView(
+                url: url!,
+              );
+            }),
+          );
+        }).then((values) async {
+      result = await value();
+      if (result != "") {
+        // await doit(result: result);
+      }
+    }).then((value) async {
+      await doit(result: result);
+    });
+
     return _initApiResponse(apiResponse);
   }
 

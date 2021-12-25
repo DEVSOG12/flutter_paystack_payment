@@ -17,7 +17,9 @@ dependencies:
   # Required for Dart Encryption
   basic_utils:
   pointycastle:
-  flutter_inappwebview:
+  webview_flutter:
+
+  # For Requests for Device
   platform_info:
   device_info:
   package_info_plus:
@@ -27,4 +29,8 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
 
+
+
 flutter:
+  assets:
+    - assets/images/

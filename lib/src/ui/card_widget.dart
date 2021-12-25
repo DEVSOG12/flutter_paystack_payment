@@ -8,7 +8,7 @@ import 'package:flutter_paystack_payment/src/ui/input/card_input.dart';
 class CardInputWidget extends StatefulWidget {
   final PaymentCard? card;
 
-  CardInputWidget(this.card);
+  const CardInputWidget(this.card, {Key? key}) : super(key: key);
 
   @override
   _CardInputWidgetState createState() {
@@ -32,12 +32,12 @@ class _CardInputWidgetState extends BaseState<CardInputWidget> {
           alignment: Alignment.center,
           child: Column(
             children: <Widget>[
-              Text(
+              const Text(
                 'Please, provide valid card details.',
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.w500),
+                style: TextStyle(fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 35.0,
               ),
               CardInput(
@@ -45,7 +45,7 @@ class _CardInputWidgetState extends BaseState<CardInputWidget> {
                 card: widget.card,
                 onValidated: _onCardValidated,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Container(

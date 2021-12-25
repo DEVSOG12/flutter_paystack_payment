@@ -52,7 +52,7 @@ class CardTransactionManager extends BaseTransactionManager {
           status: false,
           card: charge.card?..nullifyNumber(),
           method: CheckoutMethod.card,
-          verify: !(e is PaystackException));
+          verify: e is! PaystackException);
     }
   }
 

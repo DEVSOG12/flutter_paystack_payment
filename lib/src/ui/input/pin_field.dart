@@ -5,7 +5,8 @@ class PinField extends StatefulWidget {
   final ValueChanged<String>? onSaved;
   final int pinLength;
 
-  PinField({this.onSaved, this.pinLength = 4});
+  const PinField({Key? key, this.onSaved, this.pinLength = 4})
+      : super(key: key);
 
   @override
   State createState() => _PinFieldState();
@@ -15,11 +16,11 @@ class _PinFieldState extends State<PinField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       child: TextField(
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           color: Colors.black87,
           fontSize: 25.0,
@@ -32,7 +33,7 @@ class _PinFieldState extends State<PinField> {
         ],
         obscureText: true,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           isDense: true,
           hintText: 'ENTER PIN',
           hintStyle: const TextStyle(
@@ -42,10 +43,10 @@ class _PinFieldState extends State<PinField> {
           ),
           contentPadding: const EdgeInsets.all(10.0),
           enabledBorder: const OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.grey, width: 0.5)),
+              borderSide: BorderSide(color: Colors.grey, width: 0.5)),
           focusedBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Theme.of(context).accentColor, width: 1.0)),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.secondary, width: 1.0)),
         ),
         onChanged: (String value) {
           if (value.length == widget.pinLength) {

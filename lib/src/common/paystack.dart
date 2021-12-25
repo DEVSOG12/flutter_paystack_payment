@@ -45,6 +45,7 @@ class PaystackPlugin {
     // Using cascade notation to build the platform specific info
     try {
       platformInfo = (await PlatformInfo.getinfo())!;
+      _publicKey = publicKey;
       _sdkInitialized = true;
     } on PlatformException {
       rethrow;

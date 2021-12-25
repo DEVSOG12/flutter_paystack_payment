@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// This is a modification of [AlertDialog]. A lot of modifications was made. The goal is
@@ -56,9 +55,9 @@ class CustomAlertDialog extends StatelessWidget {
     Widget widget;
     if (fullscreen) {
       widget = Material(
-        color: Theme.of(context).brightness == Brightness.light
-            ? Colors.white
-            : Colors.grey,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        // ? Colors.white
+        // : Colors.grey,
         child: Container(
             child: onCancelPress == null
                 ? Padding(
@@ -76,7 +75,7 @@ class CustomAlertDialog extends StatelessWidget {
                       Align(
                         alignment: Alignment.topRight,
                         child: IconButton(
-                          icon: Icon(Icons.close),
+                          icon: const Icon(Icons.close),
                           onPressed: onCancelPress,
                           color: Colors.black54,
                           padding: const EdgeInsets.all(15.0),

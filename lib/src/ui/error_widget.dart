@@ -14,6 +14,7 @@ class ErrorWidget extends StatelessWidget {
   final bool isCardPayment;
 
   ErrorWidget({
+    Key? key,
     required this.text,
     required this.vSync,
     required this.method,
@@ -21,10 +22,11 @@ class ErrorWidget extends StatelessWidget {
     this.payWithBank,
     this.tryAnotherCard,
     this.startOverWithCard,
-  }) : controller = AnimationController(
+  })  : controller = AnimationController(
           duration: const Duration(milliseconds: 500),
           vsync: vSync,
-        ) {
+        ),
+        super(key: key) {
     controller.forward();
   }
 
@@ -33,54 +35,52 @@ class ErrorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Remove 'Retry buttons for bank payment because when you retry a transaction it ret
-    var buttonMargin = isCardPayment ? SizedBox(height: 5.0) : emptyContainer;
-    return Container(
-      child: CustomAnimatedWidget(
-        controller: controller,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(
-              Icons.warning,
-              size: 50.0,
-              color: const Color(0xFFf9a831),
+    var buttonMargin =
+        isCardPayment ? const SizedBox(height: 5.0) : emptyContainer;
+    return CustomAnimatedWidget(
+      controller: controller,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const Icon(
+            Icons.warning,
+            size: 50.0,
+            color: Color(0xFFf9a831),
+          ),
+          const SizedBox(height: 10.0),
+          Text(
+            text!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.black54,
+              fontWeight: FontWeight.w500,
+              fontSize: 14.0,
             ),
-            SizedBox(height: 10.0),
-            Text(
-              text!,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black54,
-                fontWeight: FontWeight.w500,
-                fontSize: 14.0,
-              ),
-            ),
-            SizedBox(height: 25.0),
-            isCardPayment
-                ? WhiteButton(
-                    onPressed: tryAnotherCard, text: 'Try another card')
-                : emptyContainer,
-            buttonMargin,
-            method == CheckoutMethod.selectable || method == CheckoutMethod.bank
-                ? WhiteButton(
-                    onPressed: payWithBank,
-                    text: method == CheckoutMethod.bank || !isCardPayment
-                        ? 'Retry'
-                        : 'Try paying with your bank account',
-                  )
-                : emptyContainer,
-            buttonMargin,
-            isCardPayment
-                ? WhiteButton(
-                    onPressed: startOverWithCard,
-                    text: 'Start over with same card',
-                    iconData: Icons.refresh,
-                    bold: false,
-                    flat: true,
-                  )
-                : emptyContainer
-          ],
-        ),
+          ),
+          const SizedBox(height: 25.0),
+          isCardPayment
+              ? WhiteButton(onPressed: tryAnotherCard, text: 'Try another card')
+              : emptyContainer,
+          buttonMargin,
+          method == CheckoutMethod.selectable || method == CheckoutMethod.bank
+              ? WhiteButton(
+                  onPressed: payWithBank,
+                  text: method == CheckoutMethod.bank || !isCardPayment
+                      ? 'Retry'
+                      : 'Try paying with your bank account',
+                )
+              : emptyContainer,
+          buttonMargin,
+          isCardPayment
+              ? WhiteButton(
+                  onPressed: startOverWithCard,
+                  text: 'Start over with same card',
+                  iconData: Icons.refresh,
+                  bold: false,
+                  flat: true,
+                )
+              : emptyContainer
+        ],
       ),
     );
   }

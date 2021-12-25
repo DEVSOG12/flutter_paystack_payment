@@ -12,7 +12,7 @@ class CardInput extends StatefulWidget {
   final PaymentCard? card;
   final ValueChanged<PaymentCard?> onValidated;
 
-  CardInput({
+  const CardInput({
     Key? key,
     required this.buttonText,
     required this.card,
@@ -24,7 +24,7 @@ class CardInput extends StatefulWidget {
 }
 
 class _CardInputState extends State<CardInput> {
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final PaymentCard? _card;
   var _autoValidate = AutovalidateMode.disabled;
   late TextEditingController numberController;
@@ -110,7 +110,7 @@ class _CardInputState extends State<CardInput> {
     String input = CardUtils.getCleanedNumber(numberController.text);
     String cardType = _card!.getTypeForIIN(input);
     setState(() {
-      this._card!.type = cardType;
+      _card!.type = cardType;
     });
   }
 

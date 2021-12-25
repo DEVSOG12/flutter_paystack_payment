@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_paystack_payment/src/ui/base_widget.dart';
@@ -12,14 +13,14 @@ const double _kPickerSheetHeight = 216.0;
 class BirthdayWidget extends StatefulWidget {
   final String message;
 
-  BirthdayWidget({required this.message});
+  const BirthdayWidget({Key? key, required this.message}) : super(key: key);
 
   @override
   _BirthdayWidgetState createState() => _BirthdayWidgetState();
 }
 
 class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
-  var _heightBox = const SizedBox(height: 20.0);
+  final _heightBox = const SizedBox(height: 20.0);
   DateTime? _pickedDate;
 
   @override
@@ -92,35 +93,50 @@ class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
 
     var now = DateTime.now();
     var minimumYear = 1900;
-    if (Platform.isIOS) {
-      showCupertinoModalPopup<void>(
-          context: context,
-          builder: (BuildContext context) => Container(
-                height: _kPickerSheetHeight,
-                padding: const EdgeInsets.only(top: 6.0),
-                color: CupertinoColors.white,
-                child: DefaultTextStyle(
-                  style: const TextStyle(
-                    color: CupertinoColors.black,
-                    fontSize: 22.0,
-                  ),
-                  child: GestureDetector(
-                    // Blocks taps from propagating to the modal sheet and popping.
-                    onTap: () {},
-                    child: SafeArea(
-                      top: false,
-                      child: CupertinoDatePicker(
-                        mode: CupertinoDatePickerMode.date,
-                        initialDateTime: now,
-                        maximumDate: now,
-                        minimumYear: minimumYear,
-                        maximumYear: now.year,
-                        onDateTimeChanged: updateDate,
+    if (!kIsWeb) {
+      if (Platform.isIOS) {
+        showCupertinoModalPopup<void>(
+            context: context,
+            builder: (BuildContext context) => Container(
+                  height: _kPickerSheetHeight,
+                  padding: const EdgeInsets.only(top: 6.0),
+                  color: CupertinoColors.white,
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      color: CupertinoColors.black,
+                      fontSize: 22.0,
+                    ),
+                    child: GestureDetector(
+                      // Blocks taps from propagating to the modal sheet and popping.
+                      onTap: () {},
+                      child: SafeArea(
+                        top: false,
+                        child: CupertinoDatePicker(
+                          mode: CupertinoDatePickerMode.date,
+                          initialDateTime: now,
+                          maximumDate: now,
+                          minimumYear: minimumYear,
+                          maximumYear: now.year,
+                          onDateTimeChanged: updateDate,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ));
+                ));
+      } else {
+        DateTime? result = await showDatePicker(
+            context: context,
+            selectableDayPredicate: (DateTime val) => val.year > now.year &&
+                    val.month > now.month &&
+                    val.day > now.day
+                ? false
+                : true,
+            initialDate: now,
+            firstDate: DateTime(minimumYear),
+            lastDate: now);
+
+        updateDate(result);
+      }
     } else {
       DateTime? result = await showDatePicker(
           context: context,
@@ -137,16 +153,15 @@ class _BirthdayWidgetState extends BaseState<BirthdayWidget> {
   }
 
   Widget dateItem(String text) {
-    const side = const BorderSide(color: Colors.grey, width: 0.5);
+    const side = BorderSide(color: Colors.grey, width: 0.5);
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.symmetric(horizontal: 2.0),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       decoration: const BoxDecoration(
           color: Colors.white,
-          borderRadius: const BorderRadius.all(const Radius.circular(3.0)),
-          border:
-              const Border(top: side, right: side, bottom: side, left: side)),
+          borderRadius: BorderRadius.all(Radius.circular(3.0)),
+          border: Border(top: side, right: side, bottom: side, left: side)),
       child: Text(
         text,
         textAlign: TextAlign.center,

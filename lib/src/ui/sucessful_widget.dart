@@ -6,7 +6,9 @@ class SuccessfulWidget extends StatefulWidget {
   final int amount;
   final VoidCallback onCountdownComplete;
 
-  SuccessfulWidget({required this.amount, required this.onCountdownComplete});
+  const SuccessfulWidget(
+      {Key? key, required this.amount, required this.onCountdownComplete})
+      : super(key: key);
 
   @override
   _SuccessfulWidgetState createState() {
@@ -36,7 +38,7 @@ class _SuccessfulWidgetState extends State<SuccessfulWidget>
 
     _countdownController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: kStartValue),
+      duration: const Duration(seconds: kStartValue),
     );
     _countdownController.addListener(() => setState(() {}));
     _countdownAnim =
@@ -66,56 +68,54 @@ class _SuccessfulWidgetState extends State<SuccessfulWidget>
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = Theme.of(context).accentColor;
-    return Container(
-      child: CustomAnimatedWidget(
-        controller: _mainController,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            sizedBox,
-            Image.asset(
-              'assets/images/successful.png',
-              color: accentColor,
-              width: 50.0,
-              package: 'flutter_paystack_payment',
+    final accentColor = Theme.of(context).colorScheme.secondary;
+    return CustomAnimatedWidget(
+      controller: _mainController,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          sizedBox,
+          Image.asset(
+            'assets/images/successful.png',
+            color: accentColor,
+            width: 50.0,
+            package: 'flutter_paystack_payment',
+          ),
+          sizedBox,
+          const Text(
+            'Payment Successful',
+            style: TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.w500,
+              fontSize: 16.0,
             ),
-            sizedBox,
-            const Text(
-              'Payment Successful',
-              style: const TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.w500,
-                fontSize: 16.0,
-              ),
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          widget.amount.isNegative
+              ? Container()
+              : Text('You paid ${Utils.formatAmount(widget.amount)}',
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14.0,
+                  )),
+          sizedBox,
+          FadeTransition(
+            opacity: _opacity,
+            child: Text(
+              _countdownAnim.value.toString(),
+              style: TextStyle(
+                  color: accentColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25.0),
             ),
-            SizedBox(
-              height: 5.0,
-            ),
-            widget.amount.isNegative
-                ? Container()
-                : Text('You paid ${Utils.formatAmount(widget.amount)}',
-                    style: const TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 14.0,
-                    )),
-            sizedBox,
-            FadeTransition(
-              opacity: _opacity,
-              child: Text(
-                _countdownAnim.value.toString(),
-                style: TextStyle(
-                    color: accentColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.0),
-              ),
-            ),
-            SizedBox(
-              height: 30.0,
-            )
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 30.0,
+          )
+        ],
       ),
     );
   }
