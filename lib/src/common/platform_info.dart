@@ -36,7 +36,11 @@ class PlatformInfo {
     // : Platform.instance.isIOS
     //     ? DeviceInfoPlugin().iosInfo
     //     : "NOT MOBILE";
-    String deviceId = !kIsWeb ? mobilephoneinfo.toString() : "WEB";
+    String deviceId = !kIsWeb
+        ? (Platform.isIOS || Platform.isAndroid)
+            ? mobilephoneinfo.toString()
+            : "FLUTTER_CLIENT"
+        : "WEB";
     String userAgent = "${platform}_Paystack_$pluginVersion";
     return PlatformInfo._(
       userAgent: userAgent,

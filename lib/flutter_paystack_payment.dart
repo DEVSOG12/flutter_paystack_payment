@@ -1,4 +1,4 @@
-library flutter_paystack_payment_payment;
+library flutter_paystack_payment;
 
 // Expose the following files
 export 'package:flutter_paystack_payment/src/common/exceptions.dart';

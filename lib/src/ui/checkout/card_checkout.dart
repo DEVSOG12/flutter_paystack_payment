@@ -80,7 +80,7 @@ class _CardCheckoutState extends BaseCheckoutMethodState<CardCheckout> {
         _charge.reference != null && _charge.reference!.isNotEmpty) {
       _chargeCard(_charge);
     } else {
-      // This should never happen. Validation has already been done in [PaystackPlugin .checkout]
+      // This should never happen. Validation has already been done in [PaystackPayment .checkout]
       throw ChargeException(Strings.noAccessCodeReference);
     }
   }

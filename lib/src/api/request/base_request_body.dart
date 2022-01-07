@@ -13,7 +13,7 @@ abstract class BaseRequestBody {
   String? get device => _device;
 
   _setDeviceId() {
-    String deviceId = PaystackPlugin.platformInfo.deviceId;
+    String deviceId = PaystackPayment.platformInfo.deviceId;
     _device = deviceId;
   }
 }

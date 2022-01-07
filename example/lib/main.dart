@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
   final _verticalSizeBox = const SizedBox(height: 20.0);
   final _horizontalSizeBox = const SizedBox(width: 10.0);
-  final plugin = PaystackPlugin();
+  final plugin = PaystackPayment();
   final _border = Container(
     width: double.infinity,
     height: 1.0,

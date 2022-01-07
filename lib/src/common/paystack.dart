@@ -17,7 +17,7 @@ import 'package:flutter_paystack_payment/src/transaction/card_transaction_manage
 import 'package:flutter_paystack_payment/src/ui/checkout/checkout_widget.dart';
 // import 'package:platform_info/platform_info.dart';
 
-class PaystackPlugin {
+class PaystackPayment {
   bool _sdkInitialized = false;
   String _publicKey = "";
   static late PlatformInfo platformInfo;
