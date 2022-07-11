@@ -55,7 +55,7 @@ class _SuccessfulWidgetState extends State<SuccessfulWidget>
         }
       });
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _startCountdown());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _startCountdown());
   }
 
   @override

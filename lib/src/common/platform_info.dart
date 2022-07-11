@@ -2,7 +2,7 @@
 // import 'devic';
 import 'dart:io';
 
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:platform_info/platform_info.dart' as platforminfo;

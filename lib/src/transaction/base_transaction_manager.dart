@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter_paystack_payment/src/api/webview/register_web_webview_stub.dart'
+    if (dart.library.html) 'package:flutter_paystack_payment/src/api/webview/register_web_webview.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/api/model/transaction_api_response.dart';
 import 'package:flutter_paystack_payment/src/common/exceptions.dart';
@@ -131,7 +134,8 @@ abstract class BaseTransactionManager {
 
     Future<void> doit({String? result}) async {
       try {
-        log(json.decode(result!));
+        log(result!);
+        log(json.decode(result));
 
         Map<String, dynamic> responseMap = json.decode(json.decode(result));
         apiResponse = TransactionApiResponse.fromMap(responseMap);
@@ -140,9 +144,17 @@ abstract class BaseTransactionManager {
       }
     }
 
+    // if (kIsWeb) {
+    //   js.context.callMethod('open', [url!]);
+
+    //   result = await js.context
+    //       .callMethod("document.getElementById('return').innerText");
+    // } else {
     await showDialog(
         context: context,
         builder: (_) {
+          registerWebViewWebImplementation();
+
           // Future
           return Dialog(
             child: Builder(builder: (context) {
@@ -159,6 +171,7 @@ abstract class BaseTransactionManager {
     }).then((value) async {
       await doit(result: result);
     });
+    // }
 
     return _initApiResponse(apiResponse);
   }
