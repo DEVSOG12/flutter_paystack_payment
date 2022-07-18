@@ -1,6 +1,6 @@
 name: flutter_paystack_payment
 description: A plugin for Payment through Paystack
-version: 0.0.3
+version: 0.1.0
 homepage: https://github.com/DEVSOG12/flutter_paystack_payment
 
 environment:

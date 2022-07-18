@@ -4,5 +4,6 @@
 ## 0.0.2
  Fixed Platform Issue
 
-## 0.0.3
- Fixed Platform Issue
+## 0.1.0
+ Fixed Platform Issue & Bugs
+
