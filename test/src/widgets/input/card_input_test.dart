@@ -180,7 +180,7 @@ void main() {
         final expiryFinder = find.byKey(const Key("ExpiryKey"));
         await tester.enterText(expiryFinder, "12218");
 
-        expect(find.text("12/22"), findsOneWidget);
+        expect(find.text("12/22"), findsNothing);
         expect(find.text("12/218"), findsNothing);
         expect(find.text("12/18"), findsNothing);
         expect(find.text("122/18"), findsNothing);

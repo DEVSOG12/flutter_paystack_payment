@@ -186,10 +186,10 @@ void main() {
         Case(
             desc: "four digit year and other valid details",
             inp: PaymentCard(
-                number: "4111111111111111",
-                cvc: "123",
+                number: "4084084084084081",
+                cvc: "408",
                 expiryMonth: 09,
-                expiryYear: 2025),
+                expiryYear: 2023),
             out: true),
         Case(
             desc: "expired card",
@@ -202,9 +202,9 @@ void main() {
         Case(
             desc: "valid card",
             inp: PaymentCard(
-                number: "6011000000000004",
-                cvc: "123",
-                expiryMonth: 09,
+                number: "4084084084084081",
+                cvc: "408",
+                expiryMonth: 07,
                 expiryYear: 23),
             out: true),
       ];
