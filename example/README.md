@@ -1,4 +1,4 @@
-# flutter_paystack_payment_example
+# flutter_paystack_example
 
 A new Flutter project.
 

@@ -59,20 +59,20 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
                 content: text,
                 actions: <Widget>[
                   CupertinoDialogAction(
-                    child: const Text('Yes'),
                     isDestructiveAction: true,
                     onPressed: () {
                       Navigator.pop(context, true); // Returning true to
                       // _onWillPop will pop again.
                     },
+                    child: const Text('Yes'),
                   ),
                   CupertinoDialogAction(
-                    child: const Text('No'),
                     isDefaultAction: true,
                     onPressed: () {
                       Navigator.pop(context,
                           false); // Pops the confirmation dialog but not the page.
                     },
+                    child: const Text('No'),
                   ),
                 ],
               )

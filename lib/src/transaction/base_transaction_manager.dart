@@ -2,9 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import "package:universal_html/html.dart" as html;
 
-import 'package:flutter_paystack_payment/src/api/webview/register_web_webview_stub.dart'
-    if (dart.library.html) 'package:flutter_paystack_payment/src/api/webview/register_web_webview.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/api/model/transaction_api_response.dart';
@@ -127,10 +126,60 @@ abstract class BaseTransactionManager {
     }
   }
 
+  Future<CheckoutResponse> getAuthfromUIWeb(String? url) async {
+    Map<String, dynamic> resulm = {};
+    TransactionApiResponse? apiResponse;
+    Future<bool> openpage() async {
+      html.window.open(url!, 'new window');
+
+      html.window.onMessage.listen((event) async {
+        log(event.data.toString().substring(13).toString());
+        resulm = json.decode(event.data.toString().substring(13).toString());
+
+        // _initApiResponse(ans);
+      }).asFuture((x) => log(x));
+      return Future.value(html.window.closed);
+    }
+
+    // Future<bool> open() async {
+
+    // final int res = 1 + 1;
+    // return resulm != {};
+    // }
+
+    // TransactionApiResponse? apiResponse;
+    // Future<TransactionApiResponse> doitm({Map<String, dynamic>? result}) async {
+    try {
+      await openpage();
+      await Future.delayed(const Duration(seconds: 5), () {
+        if (apiResponse == null) {
+          Future.delayed(const Duration(seconds: 30), () {
+            if (apiResponse == null) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Error. Retrying for the last time")));
+              Future.delayed(const Duration(seconds: 30), () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Error. Failed")));
+              });
+            }
+          });
+        }
+      });
+
+      apiResponse = TransactionApiResponse.fromMap(resulm);
+      return _initApiResponse(apiResponse);
+    } catch (e) {
+      log(e.toString());
+      apiResponse = TransactionApiResponse.unknownServerResponse();
+      return _initApiResponse(apiResponse);
+    }
+
+    // log("api Res $apiResponse");
+  }
+
   Future<CheckoutResponse> getAuthFrmUI(String? url) async {
     String? result = "";
-    TransactionApiResponse apiResponse =
-        TransactionApiResponse.unknownServerResponse();
+    TransactionApiResponse? apiResponse;
 
     Future<void> doit({String? result}) async {
       try {
@@ -144,17 +193,9 @@ abstract class BaseTransactionManager {
       }
     }
 
-    // if (kIsWeb) {
-    //   js.context.callMethod('open', [url!]);
-
-    //   result = await js.context
-    //       .callMethod("document.getElementById('return').innerText");
-    // } else {
     await showDialog(
         context: context,
         builder: (_) {
-          registerWebViewWebImplementation();
-
           // Future
           return Dialog(
             child: Builder(builder: (context) {
@@ -170,9 +211,13 @@ abstract class BaseTransactionManager {
       }
     }).then((value) async {
       await doit(result: result);
+      return _initApiResponse(apiResponse);
     });
-    // }
 
+    // if (apiResponse == TransactionApiResponse.unknownServerResponse()) {
+    //   await doitm(result: resulm);
+    // }
+    // apiResponse == null
     return _initApiResponse(apiResponse);
   }
 
@@ -180,7 +225,7 @@ abstract class BaseTransactionManager {
     String? pin = await showDialog<String>(
         barrierDismissible: false,
         context: context,
-        builder: (BuildContext context) => PinWidget());
+        builder: (BuildContext context) => const PinWidget());
 
     if (pin != null && pin.length == 4) {
       return handlePinInput(pin);

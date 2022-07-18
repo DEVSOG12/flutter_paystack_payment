@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/api/model/transaction_api_response.dart';
 import 'package:flutter_paystack_payment/src/api/request/card_request_body.dart';
@@ -118,7 +119,11 @@ class CardTransactionManager extends BaseTransactionManager {
       if (apiResponse.hasValidAuth() &&
           apiResponse.auth!.toLowerCase() == '3DS'.toLowerCase() &&
           apiResponse.hasValidUrl()) {
-        return getAuthFrmUI(apiResponse.otpMessage);
+        if (kIsWeb) {
+          return (getAuthfromUIWeb(apiResponse.otpMessage));
+        } else {
+          return (getAuthFrmUI(apiResponse.otpMessage));
+        }
       }
 
       if (apiResponse.hasValidAuth() &&

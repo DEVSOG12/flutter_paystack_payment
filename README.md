@@ -169,7 +169,7 @@ Clone this repo and navigate to the **example** folder. Open it with a supported
 
 ## Contributing, Issues and Bug Reports
 The project is open to public contribution. Please feel very free to contribute.
-Experienced an issue or want to report a bug? Please, [report it here](https://github.com/DEVSOG12/flutter_paystack/issues). Remember to be as descriptive as possible.
+Experienced an issue or want to report a bug? Please, [report it here](https://github.com/DEVSOG12/flutter_paystack_payment/issues). Remember to be as descriptive as possible.
 
 ## Credits
-Thanks to the author of the initial [Paystack Plugin](https://github.com/wilburt/flutter_paystack) [@wilburt](https://github.com/wilburt), I really build it upon his work.
+Thanks to the author of the initial [Paystack Plugin](https://github.com/wilburt/flutter_paystack_payment) [@wilburt](https://github.com/wilburt), I really build it upon his work.

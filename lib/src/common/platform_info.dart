@@ -23,13 +23,15 @@ class PlatformInfo {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     final platform = platforminfo.Platform.instance.operatingSystem;
+    // ignore: prefer_typing_uninitialized_variables
     var mobilephoneinfo;
-    deviceInfo() async {
-      if (!kIsWeb) {
-        Platform.isIOS
-            ? mobilephoneinfo = await DeviceInfoPlugin().iosInfo
-            : mobilephoneinfo = await DeviceInfoPlugin().androidInfo;
-      }
+
+    if (!kIsWeb) {
+      Platform.isIOS
+          ? mobilephoneinfo = await DeviceInfoPlugin().iosInfo
+          : !Platform.isLinux
+              ? mobilephoneinfo = await DeviceInfoPlugin().androidInfo
+              : mobilephoneinfo = await DeviceInfoPlugin().deviceInfo;
     }
 
     String pluginVersion = packageInfo.version;
@@ -39,8 +41,8 @@ class PlatformInfo {
     String deviceId = !kIsWeb
         ? (Platform.isIOS || Platform.isAndroid)
             ? mobilephoneinfo.toString()
-            : "FLUTTER_CLIENT"
-        : "WEB";
+            : "FLUTTER_CLIENT_MOBILE"
+        : "FLUTTER_CLIENT_WEB";
     String userAgent = "${platform}_Paystack_$pluginVersion";
     return PlatformInfo._(
       userAgent: userAgent,
@@ -53,8 +55,11 @@ class PlatformInfo {
     required String userAgent,
     required String paystackBuild,
     required String deviceId,
+    // ignore: prefer_initializing_formals
   })  : userAgent = userAgent,
+        // ignore: prefer_initializing_formals
         paystackBuild = paystackBuild,
+        // ignore: prefer_initializing_formals
         deviceId = deviceId;
 
   @override
