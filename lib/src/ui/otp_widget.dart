@@ -11,6 +11,7 @@ class OtpWidget extends StatefulWidget {
   const OtpWidget({Key? key, required this.message}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _OtpWidgetState createState() => _OtpWidgetState();
 }
 

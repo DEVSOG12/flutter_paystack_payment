@@ -11,6 +11,7 @@ class CardInputWidget extends StatefulWidget {
   const CardInputWidget(this.card, {Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CardInputWidgetState createState() {
     return _CardInputWidgetState();
   }

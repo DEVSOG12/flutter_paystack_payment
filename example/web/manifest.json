@@ -1,6 +1,6 @@
 {
-    "name": "flutter_paystack_payment_example",
-    "short_name": "flutter_paystack_payment_example",
+    "name": "flutter_paystack_example",
+    "short_name": "flutter_paystack_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

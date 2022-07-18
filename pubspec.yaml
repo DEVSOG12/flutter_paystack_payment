@@ -1,6 +1,6 @@
 name: flutter_paystack_payment
 description: A plugin for Payment through Paystack
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/DEVSOG12/flutter_paystack_payment
 
 environment:
@@ -10,24 +10,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: 
-  intl:
-  meta: 
-  async: 
+  http: ^0.13.4
+  intl: ^0.17.0
+  meta: ^1.7.0
+  async: ^2.8.2
   # Required for Dart Encryption
-  basic_utils:
-  pointycastle:
-  webview_flutter:
+  basic_utils: ^4.3.0
+  pointycastle: ^3.6.0
+  # webview_flutter: ^3.0.0
 
   # For Requests for Device
-  platform_info:
-  device_info:
-  package_info_plus:
+  platform_info: ^3.2.0
+  device_info_plus: ^4.0.0
+  # webview_flutter_web: ^0.1.0+1
+  package_info_plus: ^1.4.2
+  webview_flutter: ^3.0.4
+  universal_html: ^2.0.8
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
+  matcher: ^0.12.11
+  mockito: ^5.2.0
 
 
 

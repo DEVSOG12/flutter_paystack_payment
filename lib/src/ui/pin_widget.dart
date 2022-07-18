@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/ui/base_widget.dart';
 import 'package:flutter_paystack_payment/src/ui/custom_dialog.dart';

@@ -75,7 +75,7 @@ class ErrorWidget extends StatelessWidget {
               ? WhiteButton(
                   onPressed: startOverWithCard,
                   text: 'Start over with same card',
-                  iconData: Icons.refresh,
+                  icondata: Icons.refresh,
                   bold: false,
                   flat: true,
                 )

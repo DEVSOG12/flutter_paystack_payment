@@ -1,3 +1,5 @@
+// ignore_for_file: no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/common/card_utils.dart';
 import 'package:flutter_paystack_payment/src/common/utils.dart';
@@ -20,6 +22,7 @@ class CardInput extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CardInputState createState() => _CardInputState(card);
 }
 
