@@ -1,3 +1,5 @@
+[![Build and Test](https://github.com/DEVSOG12/flutter_paystack_payment/actions/workflows/main.yml/badge.svg)](https://github.com/DEVSOG12/flutter_paystack_payment/actions/workflows/main.yml)
+
 #  A Paystack Plugin for Flutter Apps
 
 Flutter plugin for making payments with Paystack Payment System. Fully
