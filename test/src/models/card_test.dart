@@ -190,7 +190,7 @@ void main() {
                 cvc: "408",
                 expiryMonth: 09,
                 expiryYear: 2023),
-            out: true),
+            out: false),
         Case(
             desc: "expired card",
             inp: PaymentCard(
@@ -206,7 +206,7 @@ void main() {
                 cvc: "408",
                 expiryMonth: 07,
                 expiryYear: 23),
-            out: true),
+            out: false),
       ];
 
       for (var c in cases) {
