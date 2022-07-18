@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/api/service/contracts/cards_service_contract.dart';
 import 'package:flutter_paystack_payment/src/common/exceptions.dart';

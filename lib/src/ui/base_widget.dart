@@ -101,6 +101,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
         false;
 
     if (exit) {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pop(returnValue);
     }
     return false;
@@ -109,6 +110,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
   void onCancelPress() async {
     bool close = await _onWillPop();
     if (close) {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pop(getPopReturnValue());
     }
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class WhiteButton extends _BaseButton {
   final bool flat;
-  final IconData? iconData;
+  final IconData? icondata;
   final bool bold;
 
   WhiteButton({
@@ -11,13 +11,13 @@ class WhiteButton extends _BaseButton {
     Widget? child,
     this.flat = false,
     this.bold = true,
-    this.iconData,
+    this.icondata,
   }) : super(
           onPressed: onPressed,
           showProgress: false,
           text: text,
           child: child,
-          iconData: iconData,
+          iconData: icondata,
           textStyle: TextStyle(
               fontSize: 14.0,
               color: Colors.black87.withOpacity(0.8),

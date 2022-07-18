@@ -33,7 +33,7 @@ class CustomAlertDialog extends StatelessWidget {
         padding: titlePadding!,
         child: DefaultTextStyle(
           style: Theme.of(context).textTheme.headline6!,
-          child: Semantics(child: title, namesRoute: true),
+          child: Semantics(namesRoute: true, child: title),
         ),
       ));
     }
@@ -128,7 +128,7 @@ class CustomAlertDialog extends StatelessWidget {
                 ],
               ),
       );
-      widget = CustomDialog(child: child, expanded: expanded);
+      widget = CustomDialog(expanded: expanded, child: child);
     }
     return widget;
   }

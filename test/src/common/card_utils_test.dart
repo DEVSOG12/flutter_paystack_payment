@@ -1,7 +1,7 @@
 import 'package:flutter_paystack_payment/flutter_paystack_payment.dart';
 import 'package:flutter_paystack_payment/src/common/card_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matcher/matcher.dart';
+// import 'package:matcher/matcher.dart';
 
 import 'case.dart';
 
@@ -165,8 +165,8 @@ void main() {
         Case(
             inp: PaymentCard(
                 number: null, cvc: null, expiryMonth: null, expiryYear: null),
-            out: throwsA(TypeMatcher<CardException>())),
-        Case(inp: null, out: throwsA(TypeMatcher<CardException>())),
+            out: throwsA(const TypeMatcher<CardException>())),
+        Case(inp: null, out: throwsA(const TypeMatcher<CardException>())),
         Case(
             inp: PaymentCard(
                 number: "4111111111111111",
@@ -206,7 +206,7 @@ void main() {
 
       for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
-          final value = CardUtils.concatenateCardFields;
+          const value = CardUtils.concatenateCardFields;
           if (c.out is String) {
             var v = value(c.inp);
             expect(v, c.out);

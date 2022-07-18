@@ -23,11 +23,11 @@ class WebView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    view.WebViewController? _controller;
+    view.WebViewController? controller;
 
     void readResponse() async {
       // setState(() {
-      _controller!
+      controller!
           .runJavascriptReturningResult(
               "document.getElementById('return').innerText")
           .then((value) async {
@@ -46,7 +46,7 @@ class WebView extends StatelessWidget {
     return view.WebView(
       initialUrl: url,
       onWebViewCreated: (controller) {
-        _controller = controller;
+        controller = controller;
       },
       javascriptMode: view.JavascriptMode.unrestricted,
       gestureNavigationEnabled: true,

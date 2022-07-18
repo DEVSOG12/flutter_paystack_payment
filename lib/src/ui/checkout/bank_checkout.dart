@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, no_logic_in_create_state
+
 import 'dart:async';
 
 import 'package:async/async.dart';
