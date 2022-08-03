@@ -11,3 +11,9 @@
  Fixed Platform Display.
  ### Now show platforms supported
 
+## 0.1.2
+ Fixed Platform Display.
+ ### Now show platforms supported
+
+## 0.1.2+1
+ Fixed Web CORS Issue.
