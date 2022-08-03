@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import "package:universal_html/html.dart" as html;
-
+// import 'package:flutter_web_auth/flutter_web_auth.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/api/model/transaction_api_response.dart';
@@ -176,6 +176,30 @@ abstract class BaseTransactionManager {
 
     // log("api Res $apiResponse");
   }
+
+  // Future<CheckoutResponse> getAuthDesktopFrmUI(String? url) async {
+  //   // String? result = "";
+  //   TransactionApiResponse? apiResponse;
+
+  //   Future<void> doit({String? result}) async {
+  //     try {
+  //       log(result!);
+  //       log(json.decode(result));
+
+  //       Map<String, dynamic> responseMap = json.decode(json.decode(result));
+  //       apiResponse = TransactionApiResponse.fromMap(responseMap);
+  //     } catch (e) {
+  //       log(e.toString());
+  //     }
+  //   }
+
+  //   // final res = await FlutterWebAuth.authenticate(
+  //   //     url: url!, callbackUrlScheme: "return");
+
+  //   // log(res);
+
+  //   return _initApiResponse(apiResponse);
+  // }
 
   Future<CheckoutResponse> getAuthFrmUI(String? url) async {
     String? result = "";

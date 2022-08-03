@@ -152,12 +152,19 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.1.2+1"
+    version: "0.1.2+2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_web_auth:
+    dependency: transitive
+    description:
+      name: flutter_web_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
   flutter_web_plugins:
     dependency: transitive
     description: flutter

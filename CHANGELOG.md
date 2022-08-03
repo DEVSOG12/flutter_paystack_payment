@@ -16,4 +16,7 @@
  ### Now show platforms supported
 
 ## 0.1.2+1
- Fixed Web CORS Issue.
+ Fixed Web CORS Issue & Bug in Headers for Mobile.
+
+## 0.1.2+2
+Fixed Web CORS Issue & Bug in Headers for Mobile.
