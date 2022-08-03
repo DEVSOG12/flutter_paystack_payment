@@ -6,4 +6,8 @@
 
 ## 0.1.0
  Fixed Platform Issue & Bugs
+ 
+## 0.1.1
+ Fixed Platform Display.
+ ### Now show platforms supported
 

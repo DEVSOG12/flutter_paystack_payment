@@ -377,6 +377,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
 
   Widget _buildErrorWidget() {
     _initPaymentMethods();
+    // ignore: no_leading_underscores_for_local_identifiers
     void _resetShowTabs() {
       _response = null; // Reset the response
       _showTabs = widget.method == CheckoutMethod.selectable ? true : false;

@@ -339,7 +339,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   String _getReference() {
-    log("We are here");
     String platform;
     if (!kIsWeb) {
       if (Platform.isIOS) {
