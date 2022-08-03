@@ -26,7 +26,6 @@ dependencies:
   package_info_plus: ^1.4.2
   webview_flutter: ^3.0.4
   universal_html: ^2.0.8
-  flutter_web_auth:
 
 dev_dependencies:
   flutter_test:
