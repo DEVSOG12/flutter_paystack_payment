@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_paystack_payment/src/api/model/transaction_api_response.dart';
 import 'package:flutter_paystack_payment/src/api/service/base_service.dart';
 import 'package:flutter_paystack_payment/src/api/service/contracts/cards_service_contract.dart';
@@ -16,7 +17,7 @@ class CardService with BaseApiService implements CardServiceContract {
     var url = '$baseUrl/charge/mobile_charge';
 
     http.Response response =
-        await http.post(url.toUri(), body: fields, headers: headers);
+        await http.post(url.toUri(), body: fields, headers: kIsWeb ? webheaders : headers);
     var body = response.body;
 
     var statusCode = response.statusCode;

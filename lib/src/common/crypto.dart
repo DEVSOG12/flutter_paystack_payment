@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
+// ignore: unnecessary_import
 import 'dart:typed_data';
 
 import 'package:basic_utils/basic_utils.dart';
@@ -52,7 +52,6 @@ class Crypto {
       // String? result = await Utils.methodChannel
       //     .invokeMethod('getEncryptedData', {"stringData": data});
       String? result = Cryptom().text(data);
-      log(result);
       completer.complete(result);
     } on PlatformException catch (e) {
       completer.completeError(e);

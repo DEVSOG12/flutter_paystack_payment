@@ -6,4 +6,14 @@
 
 ## 0.1.0
  Fixed Platform Issue & Bugs
+ 
+## 0.1.1
+ Fixed Platform Display.
+ ### Now show platforms supported
 
+## 0.1.2
+ Fixed Platform Display.
+ ### Now show platforms supported
+
+## 0.1.2+1
+ Fixed Web CORS Issue.
