@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+// ignore: unnecessary_import
+import 'dart:typed_data';
 
 import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/services.dart';
