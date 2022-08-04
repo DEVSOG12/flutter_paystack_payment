@@ -12,6 +12,7 @@ import 'package:flutter_paystack_payment/src/common/paystack.dart';
 import 'package:flutter_paystack_payment/src/models/charge.dart';
 import 'package:flutter_paystack_payment/src/models/checkout_response.dart';
 import 'package:flutter_paystack_payment/src/transaction/base_transaction_manager.dart';
+// import 'package:platform_info/platform_info.dart';
 
 class CardTransactionManager extends BaseTransactionManager {
   late ValidateRequestBody validateRequestBody;
@@ -122,6 +123,9 @@ class CardTransactionManager extends BaseTransactionManager {
         if (kIsWeb) {
           return (getAuthfromUIWeb(apiResponse.otpMessage));
         } else {
+          // if (!Platform.instance.isMobile) {
+          //   return getAuthDesktopFrmUI(apiResponse.otpMessage);
+          // }
           return (getAuthFrmUI(apiResponse.otpMessage));
         }
       }

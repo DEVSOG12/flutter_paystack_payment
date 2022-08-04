@@ -14,7 +14,6 @@ mixin BaseApiService {
     HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
     HttpHeaders.userAgentHeader: PaystackPayment.platformInfo.userAgent,
     HttpHeaders.acceptHeader: 'application/json',
-    'Content-Type': 'text/plain',
 
     'X-Paystack-Build': PaystackPayment.platformInfo.paystackBuild,
     'X-PAYSTACK-USER-AGENT': jsonEncode({
