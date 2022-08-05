@@ -56,7 +56,8 @@ class CardService with BaseApiService implements CardServiceContract {
   Future<TransactionApiResponse> reQueryTransaction(String? trans) async {
     var url = '$baseUrl/requery/$trans';
 
-    http.Response response = await http.get(url.toUri(), headers: headers);
+    http.Response response =
+        await http.get(url.toUri(), headers: kIsWeb ? webheaders : headers);
     var body = response.body;
     var statusCode = response.statusCode;
     if (statusCode == HttpStatus.ok) {
