@@ -16,8 +16,8 @@ class CardService with BaseApiService implements CardServiceContract {
   Future<TransactionApiResponse> chargeCard(Map<String, String?> fields) async {
     var url = '$baseUrl/charge/mobile_charge';
 
-    http.Response response =
-        await http.post(url.toUri(), body: fields, headers: kIsWeb ? webheaders : headers);
+    http.Response response = await http.post(url.toUri(),
+        body: fields, headers: kIsWeb ? webheaders : headers);
     var body = response.body;
 
     var statusCode = response.statusCode;
