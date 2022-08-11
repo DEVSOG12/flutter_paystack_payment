@@ -23,3 +23,6 @@
 
 ## 0.1.2+3
  Versioning issue
+
+ ## 0.1.2+4
+ Fixed Header Issue from @odunboye PR
