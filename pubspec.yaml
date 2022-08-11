@@ -1,6 +1,6 @@
 name: flutter_paystack_payment
-description: A plugin for Payment through Paystack
-version: 0.1.2+3
+description: A plugin for Payment through Paystack made By Oreofe Solarin. 
+version: 0.1.2+4
 homepage: https://github.com/DEVSOG12/flutter_paystack_payment
 
 environment:
@@ -50,4 +50,4 @@ flutter:
       ios:
         default_package: flutter_paystack_payment  
       web:
-        default_package: flutter_paystack_payment  
+        default_package: flutter_paystack_payment   
