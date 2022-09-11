@@ -26,3 +26,6 @@
 
  ## 0.1.2+4
  Fixed Header Issue from @odunboye PR
+
+## 0.1.2+5
+ Fixed iOS WebView Issue 

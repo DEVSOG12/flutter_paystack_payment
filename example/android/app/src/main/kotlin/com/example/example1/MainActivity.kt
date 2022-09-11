@@ -1,4 +1,4 @@
-package com.example.flutter_paystack_example
+package com.example.example1
 
 import io.flutter.embedding.android.FlutterActivity
 

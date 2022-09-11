@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart' as view;
 
@@ -14,7 +16,7 @@ Future<String?> value() async {
 }
 
 // /*  */
-class WebView extends StatelessWidget {
+class WebView extends StatefulWidget {
   final String url;
 
   // const WebView(Key? key) : super(key: key);
@@ -22,35 +24,42 @@ class WebView extends StatelessWidget {
   const WebView({required this.url, Key? key}) : super(key: key);
 
   @override
+  State<WebView> createState() => _WebViewState();
+}
+
+class _WebViewState extends State<WebView> {
+  @override
   Widget build(BuildContext context) {
     view.WebViewController? controller;
 
     void readResponse() async {
-      // setState(() {
-      controller!
-          .runJavascriptReturningResult(
-              "document.getElementById('return').innerText")
-          .then((value) async {
-        // if (value == "null ") {
-        //   response =
-        //       "{\"status\":\"requery\",\"message\":\"Reaffirm Transaction Status on Server\"}";
-        // } else {
-        response = response!.length > 7 ? response : value;
-        // }
-      });
+      try {
+        controller!
+            .runJavascriptReturningResult(
+                "document.getElementById('return').innerText")
+            .catchError((e) {
+          return Future<String>.value("");
+        }).then((value) async {
+          log("Value: $value");
+          response = response!.length > 7 ? response : value;
+          log("Response: $response");
+        });
+      } catch (e) {
+        log("error: $e");
+      }
     }
 // value contains the html data of page as string
 
     // );
     // WebView(    )
     return view.WebView(
-      initialUrl: url,
-      onWebViewCreated: (controller) {
-        controller = controller;
+      initialUrl: widget.url,
+      onWebViewCreated: (view.WebViewController webViewController) {
+        controller = webViewController;
       },
       javascriptMode: view.JavascriptMode.unrestricted,
       gestureNavigationEnabled: true,
-      onPageFinished: (_) {
+      onPageFinished: (String url) {
         readResponse();
       },
     );

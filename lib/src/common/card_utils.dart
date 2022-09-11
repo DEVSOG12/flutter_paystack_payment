@@ -126,4 +126,15 @@ class CardUtils {
     var year = int.tryParse(split[split.length - 1]) ?? -1;
     return [month, year];
   }
+
+    static List<int> setExpiryDate(String? value) {
+    if (value == null) return [-1, -1];
+    var split = value.split(RegExp(r'(\/)'));
+    var month = int.tryParse(split[0]) ?? -1;
+    if (split.length == 1) {
+      return [month, -1];
+    }
+    var year = int.tryParse(split[split.length - 1]) ?? -1;
+    return [month, year];
+  }
 }
