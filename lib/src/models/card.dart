@@ -134,17 +134,17 @@ class PaymentCard {
     this.addressLine3 = StringUtils.nullify(addressLine3);
     this.addressLine4 = StringUtils.nullify(addressLine4);
     this.addressCountry = StringUtils.nullify(addressCountry);
-    this.addressPostalCode = StringUtils.nullify(addressPostalCode);
+    addressPostalCode = StringUtils.nullify(addressPostalCode);
 
     this.country = StringUtils.nullify(country);
-    this.type = type;
+    type = type;
   }
 
   PaymentCard.empty() {
-    this.expiryYear = 0;
-    this.expiryMonth = 0;
-    this._number = null;
-    this.cvc = null;
+    expiryYear = 0;
+    expiryMonth = 0;
+    _number = null;
+    cvc = null;
   }
 
   /// Validates the CVC or CVV of the card
@@ -162,7 +162,7 @@ class PaymentCard {
   /// Validates the CVC or CVV of a card.
   /// Returns true if CVC is valid and false otherwise
   bool validCVC(String? cardCvc) {
-    cardCvc ??= this.cvc;
+    cardCvc ??= cvc;
 
     if (cardCvc == null || cardCvc.trim().isEmpty) return false;
 
@@ -177,14 +177,12 @@ class PaymentCard {
   /// Validates the number of the card
   /// Returns true if the number is valid. Returns false otherwise
   bool validNumber(String? cardNumber) {
-    if (cardNumber == null) {
-      cardNumber = this.number;
-    }
+    cardNumber ??= number;
     if (StringUtils.isEmpty(cardNumber)) return false;
 
     // Remove all non digits
     var formattedNumber =
-        cardNumber!.trim().replaceAll(new RegExp(r'[^0-9]'), '');
+        cardNumber!.trim().replaceAll(RegExp(r'[^0-9]'), '');
 
     // Verve card needs no other validation except it matched pattern
     if (CardType.fullPatternVerve.hasMatch(formattedNumber)) {
@@ -252,9 +250,9 @@ abstract class CardType {
   static const String unknown = "Unknown";
 
   // Length for some cards
-  static final int maxLengthNormal = 16;
-  static final int maxLengthAmericanExpress = 15;
-  static final int maxLengthDinersClub = 14;
+  static const int maxLengthNormal = 16;
+  static const int maxLengthAmericanExpress = 15;
+  static const int maxLengthDinersClub = 14;
 
   // Regular expressions to match complete numbers of the card
   //source of these regex patterns http://stackoverflow.com/questions/72768/how-do-you-detect-credit-card-type-based-on-number

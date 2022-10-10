@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_paystack_payment/src/common/exceptions.dart';
 import 'package:flutter_paystack_payment/src/common/string_utils.dart';
@@ -85,7 +84,7 @@ class CardUtils {
     if (text == null) {
       return '';
     }
-    RegExp regExp = new RegExp(r"[^0-9]");
+    RegExp regExp = RegExp(r"[^0-9]");
     return text.replaceAll(regExp, '');
   }
 
@@ -122,7 +121,7 @@ class CardUtils {
   /// the first number before the "/" and the last number after the "/
   static List<int> getExpiryDate(String? value) {
     if (value == null) return [-1, -1];
-    var split = value.split(new RegExp(r'(\/)'));
+    var split = value.split( RegExp(r'(\/)'));
     var month = int.tryParse(split[0]) ?? -1;
     if (split.length == 1) {
       return [month, -1];

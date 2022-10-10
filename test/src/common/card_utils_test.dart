@@ -19,12 +19,12 @@ void main() {
         Case(inp: "09765678987656789876545678987656789876545678", out: true),
         Case(inp: null, out: false),
       ];
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.isWholeNumberPositive(c.inp);
           expect(c.out, value);
         });
-      });
+      }
     });
 
     group("#convertYearTo4Digits", () {
@@ -44,12 +44,12 @@ void main() {
         Case(inp: -88, out: -88),
         Case(inp: null, out: 0),
       ];
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.convertYearTo4Digits(c.inp);
           expect(c.out, value);
         });
-      });
+      }
     });
 
     group("#hasYearPassed", () {
@@ -69,12 +69,12 @@ void main() {
         Case(inp: -88, out: true),
         Case(inp: null, out: true),
       ];
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.hasYearPassed(c.inp);
           expect(c.out, value);
         });
-      });
+      }
     });
 
     group("#hasMonthPassed", () {
@@ -91,12 +91,12 @@ void main() {
         Case(inp: [24, null], out: true),
         Case(inp: [null, null], out: true),
       ];
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.hasMonthPassed(c.inp[0], c.inp[1]);
           expect(c.out, value);
         });
-      });
+      }
     });
 
     group("#isValidMonth", () {
@@ -110,12 +110,12 @@ void main() {
         Case(inp: 012, out: true),
         Case(inp: null, out: false),
       ];
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.isValidMonth(c.inp);
           expect(c.out, value);
         });
-      });
+      }
     });
 
     group("#isNotExpired", () {
@@ -132,12 +132,12 @@ void main() {
         Case(inp: [null, null], out: false),
         Case(inp: [45, 67], out: false),
       ];
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.isNotExpired(c.inp[0], c.inp[1]);
           expect(c.out, value);
         });
-      });
+      }
     });
 
     group("#getCleanedNumber", () {
@@ -151,12 +151,12 @@ void main() {
         Case(inp: null, out: ""),
       ];
 
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.getCleanedNumber(c.inp);
           expect(c.out, value);
         });
-      });
+      }
     });
 
 
@@ -165,8 +165,8 @@ group("#concatenateCardFields", () {
         Case(
             inp: PaymentCard(
                 number: null, cvc: null, expiryMonth: null, expiryYear: null),
-            out: throwsA(TypeMatcher<CardException>())),
-        Case(inp: null, out: throwsA(TypeMatcher<CardException>())),
+            out: throwsA(const TypeMatcher<CardException>())),
+        Case(inp: null, out: throwsA(const TypeMatcher<CardException>())),
         Case(
             inp: PaymentCard(
                 number: "4111111111111111",
@@ -204,9 +204,9 @@ group("#concatenateCardFields", () {
             out: "340000000000009*433*0*0"),
       ];
 
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
-          final value = CardUtils.concatenateCardFields;
+          const value = CardUtils.concatenateCardFields;
           if (c.out is String) {
             var v = value(c.inp);
             expect(v, c.out);
@@ -214,7 +214,7 @@ group("#concatenateCardFields", () {
             expect(() => value(c.inp), c.out);
           }
         });
-      });
+      }
     });
 
     group("#getExpiryDate", () {
@@ -234,12 +234,12 @@ group("#concatenateCardFields", () {
         Case(inp: "1223", out: [1223, -1]),
       ];
 
-      cases.forEach((c) {
+      for (var c in cases) {
         test("${c.inp} returns ${c.out}", () {
           final value = CardUtils.getExpiryDate(c.inp);
           expect(c.out, value);
         });
-      });
+      }
     });
   });
 

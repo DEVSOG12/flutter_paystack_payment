@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 class StringUtils {
   static bool isEmpty(String? value) {
