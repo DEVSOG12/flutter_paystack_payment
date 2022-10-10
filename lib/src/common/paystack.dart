@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,7 +45,8 @@ class PaystackPayment {
 
     // Using cascade notation to build the platform specific info
     try {
-      platformInfo = (await PlatformInfo.getinfo())!;
+      
+      platformInfo = (Platform.environment.containsKey('FLUTTER_TEST') ? (await PlatformInfo.test())! :(await PlatformInfo.getinfo()))!;
       _publicKey = publicKey;
       _sdkInitialized = true;
     } on PlatformException {

@@ -59,7 +59,7 @@ class CardRequestBody extends BaseRequestBody {
 
   static Future<CardRequestBody> getChargeRequestBody(
       String publicKey, Charge charge) async {
-    return Crypto.encrypt(CardUtils.concatenateCardFields(charge.card))
+    return Crypto.encrypt(CardUtils.concatenateCardFields(charge.card!))
         .then((clientData) => CardRequestBody._(publicKey, charge, clientData));
   }
 

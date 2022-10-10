@@ -116,8 +116,8 @@ class PaymentCard {
   PaymentCard(
       {required String? number,
       required String? cvc,
-      required expiryMonth,
-      required expiryYear,
+      required this.expiryMonth,
+      required this.expiryYear,
       String? name,
       String? addressLine1,
       String? addressLine2,
@@ -126,25 +126,25 @@ class PaymentCard {
       String? addressPostCode,
       String? addressCountry,
       String? country}) {
-    number = number;
-    cvc = cvc;
-    name = StringUtils.nullify(name);
-    addressLine1 = StringUtils.nullify(addressLine1);
-    addressLine2 = StringUtils.nullify(addressLine2);
-    addressLine3 = StringUtils.nullify(addressLine3);
-    addressLine4 = StringUtils.nullify(addressLine4);
-    addressCountry = StringUtils.nullify(addressCountry);
-    addressPostalCode = StringUtils.nullify(addressPostalCode);
+    this.number = number;
+    this.cvc = cvc;
+    this.name = StringUtils.nullify(name);
+    this.addressLine1 = StringUtils.nullify(addressLine1);
+    this.addressLine2 = StringUtils.nullify(addressLine2);
+    this.addressLine3 = StringUtils.nullify(addressLine3);
+    this.addressLine4 = StringUtils.nullify(addressLine4);
+    this.addressCountry = StringUtils.nullify(addressCountry);
+    this.addressPostalCode = StringUtils.nullify(addressPostalCode);
 
-    country = StringUtils.nullify(country);
-    type = type;
+    this.country = StringUtils.nullify(country);
+    this.type = type;
   }
 
   PaymentCard.empty() {
-    expiryYear = 0;
-    expiryMonth = 0;
-    _number = null;
-    cvc = null;
+    this.expiryYear = 0;
+    this.expiryMonth = 0;
+    this._number = null;
+    this.cvc = null;
   }
 
   /// Validates the CVC or CVV of the card
@@ -162,7 +162,7 @@ class PaymentCard {
   /// Validates the CVC or CVV of a card.
   /// Returns true if CVC is valid and false otherwise
   bool validCVC(String? cardCvc) {
-    cardCvc ??= cvc;
+    cardCvc ??= this.cvc;
 
     if (cardCvc == null || cardCvc.trim().isEmpty) return false;
 
@@ -177,11 +177,14 @@ class PaymentCard {
   /// Validates the number of the card
   /// Returns true if the number is valid. Returns false otherwise
   bool validNumber(String? cardNumber) {
-    cardNumber ??= number;
+    if (cardNumber == null) {
+      cardNumber = this.number;
+    }
     if (StringUtils.isEmpty(cardNumber)) return false;
 
     // Remove all non digits
-    var formattedNumber = cardNumber!.trim().replaceAll(RegExp(r'[^0-9]'), '');
+    var formattedNumber =
+        cardNumber!.trim().replaceAll(new RegExp(r'[^0-9]'), '');
 
     // Verve card needs no other validation except it matched pattern
     if (CardType.fullPatternVerve.hasMatch(formattedNumber)) {
@@ -249,9 +252,9 @@ abstract class CardType {
   static const String unknown = "Unknown";
 
   // Length for some cards
-  static const int maxLengthNormal = 16;
-  static const int maxLengthAmericanExpress = 15;
-  static const int maxLengthDinersClub = 14;
+  static final int maxLengthNormal = 16;
+  static final int maxLengthAmericanExpress = 15;
+  static final int maxLengthDinersClub = 14;
 
   // Regular expressions to match complete numbers of the card
   //source of these regex patterns http://stackoverflow.com/questions/72768/how-do-you-detect-credit-card-type-based-on-number

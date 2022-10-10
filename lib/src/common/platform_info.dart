@@ -19,6 +19,14 @@ class PlatformInfo {
   // ignore: unused_field
   final String deviceId;
 
+  static Future<PlatformInfo?> test() async {
+    return PlatformInfo._(
+      userAgent: 'test',
+      paystackBuild: 'test',
+      deviceId: 'test',
+    );
+  }
+  
   static Future<PlatformInfo?> getinfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 

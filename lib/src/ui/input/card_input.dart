@@ -67,6 +67,7 @@ class _CardInputState extends State<CardInput> {
             card: _card,
             onSaved: (String? value) =>
                 _card!.number = CardUtils.getCleanedNumber(value),
+            // suffix:
             suffix: GestureDetector(
                 onTap: () async {
                   ScanCard scanCard = ScanCard();
@@ -151,7 +152,7 @@ class _CardInputState extends State<CardInput> {
   Widget getCardIcon() {
     String img = "";
     var defaultIcon = Icon(
-      Icons.camera_alt_outlined,
+      Icons.camera_alt,
       key: const Key("DefaultIssuerIcon"),
       size: 15.0,
       color: Colors.grey[600],
@@ -180,6 +181,8 @@ class _CardInputState extends State<CardInput> {
           img = 'jcb.png';
           break;
       }
+    } else {
+      img = 'mastercard.png';
     }
     Widget widget;
     if (img.isNotEmpty) {

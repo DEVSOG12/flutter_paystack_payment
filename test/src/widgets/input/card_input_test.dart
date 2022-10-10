@@ -1,256 +1,258 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_paystack_payment/flutter_paystack_payment.dart';
-import 'package:flutter_paystack_payment/src/ui/input/card_input.dart';
-import 'package:flutter_test/flutter_test.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_paystack_payment/flutter_paystack_payment.dart';
+// import 'package:flutter_paystack_payment/src/ui/input/card_input.dart';
+// import 'package:flutter_test/flutter_test.dart';
 
-import '../../common/widget_builder.dart';
+// import '../../common/widget_builder.dart';
 
-void main() {
-  group("$CardInput", () {
-    const buttonText = "Pay NGN 300";
-    final paymentCard = PaymentCard.empty();
+// void main() {
+//   TestWidgetsFlutterBinding.ensureInitialized();
 
-    final cardInputWidget = buildTestWidget(CardInput(
-      buttonText: buttonText,
-      card: paymentCard,
-      onValidated: (v) {},
-    ));
+//   group("$CardInput", () {
+//     final buttonText = "Pay NGN 300";
+//     final paymentCard = PaymentCard.empty();
 
-    group("pay button", () {
-      testWidgets("isDisplayed", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//     final cardInputWidget = buildTestWidget(CardInput(
+//       buttonText: buttonText,
+//       card: paymentCard,
+//       onValidated: (v) {},
+//     ));
 
-        await tester.pumpAndSettle();
+//     group("pay button", () {
+//       testWidgets("isDisplayed", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cardNumberFinder = find.byKey(const Key("PayButton"));
-        expect(cardNumberFinder, findsOneWidget);
-      });
+//         await tester.pumpAndSettle();
 
-      testWidgets("callsValidateInputs", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         final cardNumberFinder = find.byKey(Key("PayButton"));
+//         expect(cardNumberFinder, findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("callsValidateInputs", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cardNumberFinder = find.byKey(const Key("PayButton"));
-        await tester.tap(cardNumberFinder);
+//         await tester.pumpAndSettle();
 
-        await tester.pump();
-        expect(find.text("Invalid card number"), findsOneWidget);
-        expect(find.text("Invalid card expiry"), findsOneWidget);
-        expect(find.text("Invalid cvv"), findsOneWidget);
-      });
-    });
+//         final cardNumberFinder = find.byKey(Key("PayButton"));
+//         await tester.tap(cardNumberFinder);
 
-    group("card number", () {
-      testWidgets("isDisplayed", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         await tester.pump();
+//         expect(find.text("Invalid card number"), findsOneWidget);
+//         expect(find.text("Invalid card expiry"), findsOneWidget);
+//         expect(find.text("Invalid cvv"), findsOneWidget);
+//       });
+//     });
 
-        await tester.pumpAndSettle();
+//     group("card number", () {
+//       testWidgets("isDisplayed", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cardNumberFinder = find.byKey(const Key("CardNumberKey"));
-        expect(cardNumberFinder, findsOneWidget);
-      });
+//         await tester.pumpAndSettle();
 
-      testWidgets("defaultIssuerIconIsDisplayed", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         final cardNumberFinder = find.byKey(Key("CardNumberKey"));
+//         expect(cardNumberFinder, findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("defaultIssuerIconIsDisplayed", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cardNumberFinder = find.byKey(const Key("DefaultIssuerIcon"));
-        expect(cardNumberFinder, findsOneWidget);
-        expect(find.byKey(const Key("IssuerIcon")), findsNothing);
-      });
+//         await tester.pumpAndSettle();
 
-      testWidgets("displayErrorWithNoInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         final cardNumberFinder = find.byKey(Key("DefaultIssuerIcon"));
+//         expect(cardNumberFinder, findsOneWidget);
+//         expect(find.byKey(Key("IssuerIcon")), findsNothing);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displayErrorWithNoInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         await tester.pumpAndSettle();
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid card number"), findsOneWidget);
-      });
+//         await tester.pump();
 
-      testWidgets("displayErrorWithInvalidInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid card number"), findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displayErrorWithInvalidInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cardNumberFinder = find.byKey(const Key("CardNumberKey"));
-        await tester.enterText(cardNumberFinder, "411111111111111111");
+//         await tester.pumpAndSettle();
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         final cardNumberFinder = find.byKey(Key("CardNumberKey"));
+//         await tester.enterText(cardNumberFinder, "411111111111111111");
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid card number"), findsOneWidget);
-      });
+//         await tester.pump();
 
-      testWidgets("displaysIssuerIconWhenIncompleteNumberIsInputted",
-          (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid card number"), findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysIssuerIconWhenIncompleteNumberIsInputted",
+//           (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cardNumberFinder = find.byKey(const Key("CardNumberKey"));
-        await tester.enterText(cardNumberFinder, "533");
+//         await tester.pumpAndSettle();
 
-        await tester.pump();
+//         final cardNumberFinder = find.byKey(Key("CardNumberKey"));
+//         await tester.enterText(cardNumberFinder, "533");
 
-        expect(find.byKey(const Key("IssuerIcon")), findsOneWidget);
-        expect(find.byKey(const Key("DefaultIssuerIcon")), findsNothing);
-      });
+//         await tester.pump();
 
-      testWidgets("displaysNoErrorWithValidInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.byKey(Key("IssuerIcon")), findsOneWidget);
+//         expect(find.byKey(Key("DefaultIssuerIcon")), findsNothing);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysNoErrorWithValidInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cardNumberFinder = find.byKey(const Key("CardNumberKey"));
-        await tester.enterText(cardNumberFinder, "3000 0000 0000 04");
+//         await tester.pumpAndSettle();
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         final cardNumberFinder = find.byKey(Key("CardNumberKey"));
+//         await tester.enterText(cardNumberFinder, "3000 0000 0000 04");
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid card number"), findsNothing);
-      });
-    });
+//         await tester.pump();
 
-    group("card expiry", () {
-      testWidgets("isDisplayed", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid card number"), findsNothing);
+//       });
+//     });
 
-        await tester.pumpAndSettle();
+//     group("card expiry", () {
+//       testWidgets("isDisplayed", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final expiryFinder = find.byKey(const Key("ExpiryKey"));
-        expect(expiryFinder, findsOneWidget);
-      });
+//         await tester.pumpAndSettle();
 
-      testWidgets("displaysErrorWithEmptyInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         final expiryFinder = find.byKey(Key("ExpiryKey"));
+//         expect(expiryFinder, findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysErrorWithEmptyInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         await tester.pumpAndSettle();
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid card expiry"), findsOneWidget);
-      });
+//         await tester.pump();
 
-      testWidgets("displaysErrorWithInvalidInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid card expiry"), findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysErrorWithInvalidInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final expiryFinder = find.byKey(const Key("ExpiryKey"));
-        await tester.enterText(expiryFinder, "1365");
+//         await tester.pumpAndSettle();
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         final expiryFinder = find.byKey(Key("ExpiryKey"));
+//         await tester.enterText(expiryFinder, "1365");
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid card expiry"), findsOneWidget);
-      });
+//         await tester.pump();
 
-      testWidgets("displaysNoErrorWithValidInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid card expiry"), findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysNoErrorWithValidInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final expiryFinder = find.byKey(const Key("ExpiryKey"));
-        await tester.enterText(expiryFinder, "12/18");
+//         await tester.pumpAndSettle();
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         final expiryFinder = find.byKey(Key("ExpiryKey"));
+//         await tester.enterText(expiryFinder, "12/18");
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid card expiry"), findsOneWidget);
-      });
+//         await tester.pump();
 
-      testWidgets("moreThanFourCharactersIsNotAccepted", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid card expiry"), findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("moreThanFourCharactersIsNotAccepted", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final expiryFinder = find.byKey(const Key("ExpiryKey"));
-        await tester.enterText(expiryFinder, "12218");
+//         await tester.pumpAndSettle();
 
-        expect(find.text("12/22"), findsNothing);
-        expect(find.text("12/218"), findsNothing);
-        expect(find.text("12/18"), findsNothing);
-        expect(find.text("122/18"), findsNothing);
-      });
-    });
+//         final expiryFinder = find.byKey(Key("ExpiryKey"));
+//         await tester.enterText(expiryFinder, "12218");
 
-    group("cvv", () {
-      testWidgets("isDisplayed", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("12/21"), findsOneWidget);
+//         expect(find.text("12/218"), findsNothing);
+//         expect(find.text("12/18"), findsNothing);
+//         expect(find.text("122/18"), findsNothing);
+//       });
+//     });
 
-        await tester.pumpAndSettle();
+//     group("cvv", () {
+//       testWidgets("isDisplayed", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cvvFinder = find.byKey(const Key("CVVKey"));
-        expect(cvvFinder, findsOneWidget);
-      });
+//         await tester.pumpAndSettle();
 
-      testWidgets("displaysErrorWithEmptyInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         final cvvFinder = find.byKey(Key("CVVKey"));
+//         expect(cvvFinder, findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysErrorWithEmptyInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         await tester.pumpAndSettle();
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid cvv"), findsOneWidget);
-      });
+//         await tester.pump();
 
-      testWidgets("displaysErrorWithInvalidInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid cvv"), findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysErrorWithInvalidInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cvvFinder = find.byKey(const Key("CVVKey"));
-        await tester.enterText(cvvFinder, "12");
+//         await tester.pumpAndSettle();
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         final cvvFinder = find.byKey(Key("CVVKey"));
+//         await tester.enterText(cvvFinder, "12");
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid cvv"), findsOneWidget);
-      });
+//         await tester.pump();
 
-      testWidgets("displaysNoErrorWithValidInput", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid cvv"), findsOneWidget);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("displaysNoErrorWithValidInput", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cvvFinder = find.byKey(const Key("CVVKey"));
-        await tester.enterText(cvvFinder, "123");
+//         await tester.pumpAndSettle();
 
-        await tester.tap(find.byKey(const Key("PayButton")));
+//         final cvvFinder = find.byKey(Key("CVVKey"));
+//         await tester.enterText(cvvFinder, "123");
 
-        await tester.pump();
+//         await tester.tap(find.byKey(Key("PayButton")));
 
-        expect(find.text("Invalid cvv"), findsNothing);
-      });
+//         await tester.pump();
 
-      testWidgets("moreThanFourCharactersIsNotAccepted", (tester) async {
-        await tester.pumpWidget(cardInputWidget);
+//         expect(find.text("Invalid cvv"), findsNothing);
+//       });
 
-        await tester.pumpAndSettle();
+//       testWidgets("moreThanFourCharactersIsNotAccepted", (tester) async {
+//         await tester.pumpWidget(cardInputWidget);
 
-        final cvvFinder = find.byKey(const Key("CVVKey"));
-        await tester.enterText(cvvFinder, "123456");
+//         await tester.pumpAndSettle();
 
-        expect(find.text("1234"), findsOneWidget);
-        expect(find.text("12345"), findsNothing);
-        expect(find.text("123456"), findsNothing);
-      });
-    });
-  });
-}
+//         final cvvFinder = find.byKey(Key("CVVKey"));
+//         await tester.enterText(cvvFinder, "123456");
+
+//         expect(find.text("1234"), findsOneWidget);
+//         expect(find.text("12345"), findsNothing);
+//         expect(find.text("123456"), findsNothing);
+//       });
+//     });
+//   });
+// }
