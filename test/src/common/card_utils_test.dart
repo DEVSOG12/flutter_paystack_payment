@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 // import 'package:matcher/matcher.dart';
 
 import 'case.dart';
-
 void main() {
   group("$CardUtils", () {
     group("#isWholeNumberPositive", () {
@@ -80,14 +79,14 @@ void main() {
 
     group("#hasMonthPassed", () {
       final cases = [
-        Case(inp: [2025, 10], out: false),
+        Case(inp: [2027, 10], out: false),
         Case(inp: [10, 0], out: true),
         Case(inp: [0, 0], out: true),
         Case(inp: [1994, 1], out: true),
         Case(inp: [1, 1], out: true),
         Case(inp: [-203, -13], out: true),
-        Case(inp: [22, 12], out: false),
-        Case(inp: [2023, 05], out: false),
+        Case(inp: [10, 22], out: true),
+        Case(inp: [2027, 05], out: false),
         Case(inp: [null, 05], out: true),
         Case(inp: [24, null], out: true),
         Case(inp: [null, null], out: true),
@@ -121,14 +120,14 @@ void main() {
 
     group("#isNotExpired", () {
       final cases = [
-        Case(inp: [2024, 10], out: true),
+        Case(inp: [2027, 10], out: true),
         Case(inp: [10, 0], out: false),
         Case(inp: [0, 0], out: false),
         Case(inp: [1994, 1], out: false),
         Case(inp: [1, 1], out: false),
         Case(inp: [-203, -13], out: false),
-        Case(inp: [22, 10], out: true),
-        Case(inp: [2024, 05], out: true),
+        Case(inp: [28, 10], out: true),
+        Case(inp: [2027, 05], out: true),
         Case(inp: [24, null], out: false),
         Case(inp: [null, null], out: false),
         Case(inp: [45, 67], out: false),
@@ -160,50 +159,49 @@ void main() {
       }
     });
 
-    group("#concatenateCardFields", () {
+
+group("#concatenateCardFields", () {
       final cases = [
         Case(
             inp: PaymentCard(
                 number: null, cvc: null, expiryMonth: null, expiryYear: null),
             out: throwsA(const TypeMatcher<CardException>())),
         Case(inp: null, out: throwsA(const TypeMatcher<CardException>())),
-
-        /// Fix Case
-        // Case(
-        //     inp: PaymentCard(
-        //         number: "4111111111111111",
-        //         cvc: "123",
-        //         expiryMonth: 12,
-        //         expiryYear: 12),
-        //     out: "4111111111111111*123*12*12"),
-        // Case(
-        //     inp: PaymentCard(
-        //         number: "5500000000000004",
-        //         cvc: null,
-        //         expiryMonth: 12,
-        //         expiryYear: 12),
-        //     out: "5500000000000004*null*12*12"),
-        // Case(
-        //     inp: PaymentCard(
-        //         number: "340000000000009",
-        //         cvc: "433",
-        //         expiryMonth: 199,
-        //         expiryYear: null),
-        //     out: "340000000000009*433*199*0"),
-        // Case(
-        //     inp: PaymentCard(
-        //         number: "340000000000009",
-        //         cvc: "433",
-        //         expiryMonth: null,
-        //         expiryYear: 30),
-        //     out: "340000000000009*433*0*30"),
-        // Case(
-        //     inp: PaymentCard(
-        //         number: "340000000000009",
-        //         cvc: "433",
-        //         expiryMonth: null,
-        //         expiryYear: null),
-        //     out: "340000000000009*433*0*0"),
+        Case(
+            inp: PaymentCard(
+                number: "4111111111111111",
+                cvc: "123",
+                expiryMonth: 12,
+                expiryYear: 12),
+            out: "4111111111111111*123*12*12"),
+        Case(
+            inp: PaymentCard(
+                number: "5500000000000004",
+                cvc: null,
+                expiryMonth: 12,
+                expiryYear: 12),
+            out: "5500000000000004*null*12*12"),
+        Case(
+            inp: PaymentCard(
+                number: "340000000000009",
+                cvc: "433",
+                expiryMonth: 199,
+                expiryYear: null),
+            out: "340000000000009*433*199*0"),
+        Case(
+            inp: PaymentCard(
+                number: "340000000000009",
+                cvc: "433",
+                expiryMonth: null,
+                expiryYear: 30),
+            out: "340000000000009*433*0*30"),
+        Case(
+            inp: PaymentCard(
+                number: "340000000000009",
+                cvc: "433",
+                expiryMonth: null,
+                expiryYear: null),
+            out: "340000000000009*433*0*0"),
       ];
 
       for (var c in cases) {
@@ -244,4 +242,7 @@ void main() {
       }
     });
   });
+
+
+
 }

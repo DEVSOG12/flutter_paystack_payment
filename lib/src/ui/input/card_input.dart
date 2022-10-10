@@ -1,7 +1,9 @@
 // ignore_for_file: no_logic_in_create_state
 
+import 'package:credit_card_scanner/models/card_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack_payment/src/common/card_utils.dart';
+import 'package:flutter_paystack_payment/src/common/scan_util.dart';
 import 'package:flutter_paystack_payment/src/common/utils.dart';
 import 'package:flutter_paystack_payment/src/models/card.dart';
 import 'package:flutter_paystack_payment/src/ui/buttons.dart';
@@ -65,7 +67,23 @@ class _CardInputState extends State<CardInput> {
             card: _card,
             onSaved: (String? value) =>
                 _card!.number = CardUtils.getCleanedNumber(value),
-            suffix: getCardIcon(),
+            // suffix:
+            suffix: GestureDetector(
+                onTap: () async {
+                  ScanCard scanCard = ScanCard();
+                  CardDetails cardDetails = await scanCard.scanCard();
+                  setState(() {
+                    numberController.text = cardDetails.cardNumber;
+                    _card!.number =
+                        CardUtils.getCleanedNumber(cardDetails.cardNumber);
+                    // _card!.expiryMonth =
+                    //     int.parse(cardDetails.expiryDate.split('/')[0]);
+                    // _card!.expiryYear =
+                    //     int.parse(cardDetails.expiryDate.split('/')[1]);
+                    // _card!.cvc = cardDetail;
+                  });
+                },
+                child: getCardIcon()),
           ),
           const SizedBox(
             height: 15.0,
@@ -134,7 +152,7 @@ class _CardInputState extends State<CardInput> {
   Widget getCardIcon() {
     String img = "";
     var defaultIcon = Icon(
-      Icons.credit_card,
+      Icons.camera_alt,
       key: const Key("DefaultIssuerIcon"),
       size: 15.0,
       color: Colors.grey[600],
@@ -163,6 +181,8 @@ class _CardInputState extends State<CardInput> {
           img = 'jcb.png';
           break;
       }
+    } else {
+      img = 'mastercard.png';
     }
     Widget widget;
     if (img.isNotEmpty) {

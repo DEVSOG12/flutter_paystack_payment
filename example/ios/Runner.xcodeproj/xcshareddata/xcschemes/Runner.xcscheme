@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BluelogIdentifier = "97C146ED1CF9000F007C117D"
+               BlueprintIdentifier = "97C146ED1CF9000F007C117D"
                BuildableName = "Runner.app"
-               BluelogName = "Runner"
+               BlueprintName = "Runner"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,9 +30,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BluelogIdentifier = "97C146ED1CF9000F007C117D"
+            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
             BuildableName = "Runner.app"
-            BluelogName = "Runner"
+            BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -53,9 +53,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BluelogIdentifier = "97C146ED1CF9000F007C117D"
+            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
             BuildableName = "Runner.app"
-            BluelogName = "Runner"
+            BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -70,9 +70,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BluelogIdentifier = "97C146ED1CF9000F007C117D"
+            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
             BuildableName = "Runner.app"
-            BluelogName = "Runner"
+            BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

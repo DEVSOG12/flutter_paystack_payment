@@ -116,8 +116,8 @@ class PaymentCard {
   PaymentCard(
       {required String? number,
       required String? cvc,
-      required expiryMonth,
-      required expiryYear,
+      required this.expiryMonth,
+      required this.expiryYear,
       String? name,
       String? addressLine1,
       String? addressLine2,
@@ -126,17 +126,17 @@ class PaymentCard {
       String? addressPostCode,
       String? addressCountry,
       String? country}) {
-    number = number;
-    cvc = cvc;
-    name = StringUtils.nullify(name);
-    addressLine1 = StringUtils.nullify(addressLine1);
-    addressLine2 = StringUtils.nullify(addressLine2);
-    addressLine3 = StringUtils.nullify(addressLine3);
-    addressLine4 = StringUtils.nullify(addressLine4);
-    addressCountry = StringUtils.nullify(addressCountry);
+    this.number = number;
+    this.cvc = cvc;
+    this.name = StringUtils.nullify(name);
+    this.addressLine1 = StringUtils.nullify(addressLine1);
+    this.addressLine2 = StringUtils.nullify(addressLine2);
+    this.addressLine3 = StringUtils.nullify(addressLine3);
+    this.addressLine4 = StringUtils.nullify(addressLine4);
+    this.addressCountry = StringUtils.nullify(addressCountry);
     addressPostalCode = StringUtils.nullify(addressPostalCode);
 
-    country = StringUtils.nullify(country);
+    this.country = StringUtils.nullify(country);
     type = type;
   }
 
@@ -181,7 +181,8 @@ class PaymentCard {
     if (StringUtils.isEmpty(cardNumber)) return false;
 
     // Remove all non digits
-    var formattedNumber = cardNumber!.trim().replaceAll(RegExp(r'[^0-9]'), '');
+    var formattedNumber =
+        cardNumber!.trim().replaceAll(RegExp(r'[^0-9]'), '');
 
     // Verve card needs no other validation except it matched pattern
     if (CardType.fullPatternVerve.hasMatch(formattedNumber)) {

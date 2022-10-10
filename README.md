@@ -36,6 +36,18 @@ class _ExamplePayementPageState extends State<ExamplePayementPage> {
 }
 ```
 
+## New Feature 
+You can now scan the card instead of inputting the card details manually. 
+
+### Setup - Android
+You need to add the permission to use the CAMERA
+``` <uses-permission android:name="android.permission.CAMERA" /> ```
+
+### Setup - iOS
+You need to add the permission to use the CAMERA `NSCameraUsageDescription
+`NSCameraUsageDescription` with the reason the camera is being used. E.g. `To Scan Details on Card While trying to process payment`
+
+
 ## Making Payments
 There are two ways of making payment with the plugin.
 1.  **Checkout**: This is the easy way; as the plugin handles all the
@@ -174,4 +186,4 @@ The project is open to public contribution. Please feel very free to contribute.
 Experienced an issue or want to report a bug? Please, [report it here](https://github.com/DEVSOG12/flutter_paystack_payment/issues). Remember to be as descriptive as possible.
 
 ## Credits
-Thanks to the author of the initial [Paystack Plugin](https://github.com/wilburt/flutter_paystack_payment) [@wilburt](https://github.com/wilburt), I really build it upon his work.
+Thanks to the author of the initial [Paystack Plugin](https://github.com/wilburt/flutter_paystack) [@wilburt](https://github.com/wilburt), I really build it upon his work.

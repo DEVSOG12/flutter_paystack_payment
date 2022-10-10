@@ -207,10 +207,8 @@ abstract class BaseTransactionManager {
 
     Future<void> doit({String? result}) async {
       try {
-        log(result!);
-        log(json.decode(result));
+        Map<String, dynamic> responseMap = json.decode(result!);
 
-        Map<String, dynamic> responseMap = json.decode(json.decode(result));
         apiResponse = TransactionApiResponse.fromMap(responseMap);
       } catch (e) {
         log(e.toString());
