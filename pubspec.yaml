@@ -23,7 +23,7 @@ dependencies:
   platform_info: ^4.0.0
   device_info_plus: ^9.0.0
   package_info_plus: ^4.0.0
-  webview_flutter: ^4.2.0
+  webview_flutter: ^3.0.4
   universal_html: ^2.0.8
   credit_card_scanner: ^1.0.5
 
