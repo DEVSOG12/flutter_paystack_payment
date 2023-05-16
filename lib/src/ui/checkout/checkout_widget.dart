@@ -94,10 +94,10 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(
+        const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Icon(Icons.lock, size: 10),
             Padding(
               padding: EdgeInsetsDirectional.only(start: 3),
