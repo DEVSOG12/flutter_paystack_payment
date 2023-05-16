@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart' as view;
+import 'package:webview_flutter/webview_flutter.dart';
 
 String? response = "nulll";
 Future<String?> value() async {
@@ -30,38 +30,58 @@ class WebView extends StatefulWidget {
 class _WebViewState extends State<WebView> {
   @override
   Widget build(BuildContext context) {
-    view.WebViewController? controller;
+    WebViewController? controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..runJavaScriptReturningResult(
+              "document.getElementById('return').innerText")
+          .catchError((e) {
+        return Future<String>.value("");
+      }).then((value) async {
+        log("Value: $value");
+        // response = response!.length > 7 ? response : value;
+        log("Response: $response");
+      })
+      // .onError((error, stackTrace) async => log("error: $error"))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onPageFinished: (String url) {},
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.url));
 
-    void readResponse() async {
-      try {
-        controller!
-            .runJavascriptReturningResult(
-                "document.getElementById('return').innerText")
-            .catchError((e) {
-          return Future<String>.value("");
-        }).then((value) async {
-          log("Value: $value");
-          response = response!.length > 7 ? response : value;
-          log("Response: $response");
-        });
-      } catch (e) {
-        log("error: $e");
-      }
-    }
+    // void readResponse() async {
+    //   try {
+    //     controller
+    //         .runJavaScriptReturningResult(
+    //             "document.getElementById('return').innerText")
+    //         .catchError((e) {
+    //       return Future<String>.value("");
+    //     }).then((value) async {
+    //       log("Value: $value");
+    //       // response = response!.length > 7 ? response : value;
+    //       // log("Response: $response");
+    //     });
+    //   } catch (e) {
+    //     log("error: $e");
+    //   }
+    // }
 // value contains the html data of page as string
 
     // );
     // WebView(    )
-    return view.WebView(
-      initialUrl: widget.url,
-      onWebViewCreated: (view.WebViewController webViewController) {
-        controller = webViewController;
-      },
-      javascriptMode: view.JavascriptMode.unrestricted,
-      gestureNavigationEnabled: true,
-      onPageFinished: (String url) {
-        readResponse();
-      },
+    return WebViewWidget(
+      controller: controller,
     );
+    // return view.WebView(
+    //   initialUrl: widget.url,
+    //   onWebViewCreated: (view.WebViewController webViewController) {
+    //     controller = webViewController;
+    //   },
+    //   javascriptMode: view.JavaScriptMode.unrestricted,
+    //   gestureNavigationEnabled: true,
+    //   onPageFinished: (String url) {
+    //     readResponse();
+    //   },
+    // );
   }
 }
