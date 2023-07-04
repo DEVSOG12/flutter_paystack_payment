@@ -29,3 +29,9 @@
 
 ## 0.1.2+5
  Fixed iOS WebView Issue 
+
+## 0.1.2+6
+ v0.1.2+6
+
+## 0.1.3
+ Topped version for dependencies

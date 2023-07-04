@@ -26,9 +26,11 @@ abstract class BaseTransactionManager {
   final BuildContext context;
   final Transaction transaction = Transaction();
   final String publicKey;
+  final bool scanCard;
 
   BaseTransactionManager({
     required this.charge,
+    required this.scanCard,
     required this.context,
     required this.publicKey,
   });
@@ -90,11 +92,15 @@ abstract class BaseTransactionManager {
 
   setProcessingOn() => processing = true;
 
-  Future<CheckoutResponse> getCardInfoFrmUI(PaymentCard? currentCard) async {
+  Future<CheckoutResponse> getCardInfoFrmUI(
+      PaymentCard? currentCard, bool scanCard) async {
     PaymentCard? newCard = await showDialog<PaymentCard>(
         barrierDismissible: false,
         context: context,
-        builder: (BuildContext context) => CardInputWidget(currentCard));
+        builder: (BuildContext context) => CardInputWidget(
+              currentCard,
+              scanCard: scanCard,
+            ));
 
     if (newCard == null || !newCard.isValid()) {
       return notifyProcessingError(CardException('Invalid card parameters'));

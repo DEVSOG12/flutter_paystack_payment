@@ -309,17 +309,18 @@ class _HomePageState extends State<HomePage> {
         ..putCustomField('Charged From', 'Flutter SDK');
       // _getReference();
       log(charge.reference!);
-      _chargeCard(charge);
+      _chargeCard(charge, scanCard: true);
     } else {
       // Perform transaction/initialize on Paystack server to get an access code
       // documentation: https://developers.paystack.co/reference#initialize-a-transaction
       charge.accessCode = await _fetchAccessCodeFrmServer(_getReference());
-      _chargeCard(charge);
+      _chargeCard(charge, scanCard: true);
     }
   }
 
-  _chargeCard(Charge charge) async {
-    final response = await plugin.chargeCard(context, charge: charge);
+  _chargeCard(Charge charge, {required bool scanCard}) async {
+    final response =
+        await plugin.chargeCard(context, charge: charge, scanCard: scanCard);
     log(response.reference!);
     final reference = response.reference;
 

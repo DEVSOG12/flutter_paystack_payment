@@ -24,10 +24,11 @@ class CardTransactionManager extends BaseTransactionManager {
       {required Charge charge,
       required this.service,
       required BuildContext context,
-      required String publicKey})
+      required String publicKey,
+      required bool scanCard})
       : assert(charge.card != null,
             'please add a card to the charge before ' 'calling chargeCard'),
-        super(charge: charge, context: context, publicKey: publicKey);
+        super(charge: charge, context: context, publicKey: publicKey, scanCard: scanCard);
 
   @override
   postInitiate() async {
@@ -39,7 +40,7 @@ class CardTransactionManager extends BaseTransactionManager {
   Future<CheckoutResponse> chargeCard() async {
     try {
       if (charge.card == null || !charge.card!.isValid()) {
-        return getCardInfoFrmUI(charge.card);
+        return getCardInfoFrmUI(charge.card, scanCard);
       } else {
         await initiate();
         return sendCharge();

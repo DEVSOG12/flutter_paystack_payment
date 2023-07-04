@@ -20,7 +20,7 @@ class BankTransactionManager extends BaseTransactionManager {
       required Charge charge,
       required BuildContext context,
       required String publicKey})
-      : super(charge: charge, context: context, publicKey: publicKey);
+      : super(charge: charge, context: context, publicKey: publicKey, scanCard: false);
 
   Future<CheckoutResponse> chargeBank() async {
     await initiate();
