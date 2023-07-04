@@ -25,6 +25,7 @@ class CheckoutWidget extends StatefulWidget {
   final Widget? logo;
   final bool hideEmail;
   final bool hideAmount;
+  final bool scanCard;
   final BankServiceContract bankService;
   final CardServiceContract cardsService;
   final String publicKey;
@@ -34,6 +35,7 @@ class CheckoutWidget extends StatefulWidget {
     required this.method,
     required this.charge,
     required this.bankService,
+    required this.scanCard,
     required this.cardsService,
     required this.publicKey,
     this.fullscreen = false,
@@ -94,10 +96,10 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(
+        const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Icon(Icons.lock, size: 10),
             Padding(
               padding: EdgeInsetsDirectional.only(start: 3),
@@ -297,6 +299,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             publicKey: widget.publicKey,
             service: widget.cardsService,
             charge: _charge,
+            scanCard: widget.scanCard,
             onProcessingChange: _onProcessingChange,
             onResponse: _onPaymentResponse,
             hideAmount: widget.hideAmount,

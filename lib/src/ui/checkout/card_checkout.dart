@@ -20,12 +20,14 @@ class CardCheckout extends StatefulWidget {
   final ValueChanged<bool> onProcessingChange;
   final ValueChanged<PaymentCard?> onCardChange;
   final bool hideAmount;
+  final bool scanCard;
   final CardServiceContract service;
   final String publicKey;
 
   const CardCheckout({
     Key? key,
     required this.charge,
+    required this.scanCard,
     required this.onResponse,
     required this.onProcessingChange,
     required this.onCardChange,
@@ -62,6 +64,7 @@ class _CardCheckoutState extends BaseCheckoutMethodState<CardCheckout> {
             height: 20.0,
           ),
           CardInput(
+            showScanButton: widget.scanCard,
             key: const Key("CardInput"),
             buttonText: widget.hideAmount ? "Continue" : 'Pay $amountText',
             card: _charge.card,
@@ -93,6 +96,7 @@ class _CardCheckoutState extends BaseCheckoutMethodState<CardCheckout> {
       context: context,
       service: widget.service,
       publicKey: widget.publicKey,
+      scanCard: widget.scanCard,
     ).chargeCard();
     onResponse(response);
   }

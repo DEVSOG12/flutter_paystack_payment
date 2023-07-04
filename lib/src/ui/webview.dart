@@ -35,33 +35,32 @@ class _WebViewState extends State<WebView> {
     void readResponse() async {
       try {
         controller!
-            .runJavascriptReturningResult(
+            .runJavaScriptReturningResult(
                 "document.getElementById('return').innerText")
             .catchError((e) {
           return Future<String>.value("");
         }).then((value) async {
           log("Value: $value");
-          response = response!.length > 7 ? response : value;
+          // response = response!.length > 7 ? response : value;
+          response = response!.length > 7 ? response : value.toString();
           log("Response: $response");
         });
       } catch (e) {
         log("error: $e");
       }
     }
-// value contains the html data of page as string
 
-    // );
-    // WebView(    )
-    return view.WebView(
-      initialUrl: widget.url,
-      onWebViewCreated: (view.WebViewController webViewController) {
-        controller = webViewController;
-      },
-      javascriptMode: view.JavascriptMode.unrestricted,
-      gestureNavigationEnabled: true,
-      onPageFinished: (String url) {
-        readResponse();
-      },
+    controller = view.WebViewController()
+      ..setJavaScriptMode(view.JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(view.NavigationDelegate(
+        onPageFinished: (String url) {
+          readResponse();
+        },
+      ))
+      ..loadRequest(Uri.parse(widget.url));
+
+    return view.WebViewWidget(
+      controller: controller,
     );
   }
 }

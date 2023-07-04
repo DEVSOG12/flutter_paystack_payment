@@ -7,8 +7,9 @@ import 'package:flutter_paystack_payment/src/ui/input/card_input.dart';
 
 class CardInputWidget extends StatefulWidget {
   final PaymentCard? card;
+  final bool scanCard;
 
-  const CardInputWidget(this.card, {Key? key}) : super(key: key);
+  const CardInputWidget(this.card, {Key? key, required this.scanCard}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -42,6 +43,7 @@ class _CardInputWidgetState extends BaseState<CardInputWidget> {
                 height: 35.0,
               ),
               CardInput(
+                showScanButton: widget.scanCard,
                 buttonText: 'Continue',
                 card: widget.card,
                 onValidated: _onCardValidated,

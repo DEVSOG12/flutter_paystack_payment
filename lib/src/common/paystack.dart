@@ -45,8 +45,9 @@ class PaystackPayment {
 
     // Using cascade notation to build the platform specific info
     try {
-      
-      platformInfo = (Platform.environment.containsKey('FLUTTER_TEST') ? (await PlatformInfo.test())! :(await PlatformInfo.getinfo()))!;
+      platformInfo = (Platform.environment.containsKey('FLUTTER_TEST')
+          ? (await PlatformInfo.test())!
+          : (await PlatformInfo.getinfo()))!;
       _publicKey = publicKey;
       _sdkInitialized = true;
     } on PlatformException {
@@ -83,10 +84,10 @@ class PaystackPayment {
   /// [charge] - the charge object.
 
   Future<CheckoutResponse> chargeCard(BuildContext context,
-      {required Charge charge}) {
+      {required Charge charge, required bool scanCard}) {
     _performChecks();
 
-    return _Paystack(publicKey).chargeCard(context: context, charge: charge);
+    return _Paystack(publicKey).chargeCard(context: context, charge: charge, scanCard: scanCard);
   }
 
   /// Make payment using Paystack's checkout form. The plugin will handle the whole
@@ -127,6 +128,7 @@ class PaystackPayment {
     BuildContext context, {
     required Charge charge,
     CheckoutMethod method = CheckoutMethod.selectable,
+    bool scanCard = false,
     bool fullscreen = false,
     Widget? logo,
     bool hideEmail = false,
@@ -137,6 +139,7 @@ class PaystackPayment {
       charge: charge,
       method: method,
       fullscreen: fullscreen,
+      scanCard: scanCard,
       logo: logo,
       hideAmount: hideAmount,
       hideEmail: hideEmail,
@@ -158,11 +161,12 @@ class _Paystack {
   _Paystack(this.publicKey);
 
   Future<CheckoutResponse> chargeCard(
-      {required BuildContext context, required Charge charge}) {
+      {required BuildContext context, required Charge charge, required bool scanCard}) {
     return CardTransactionManager(
             service: CardService(),
             charge: charge,
             context: context,
+            scanCard: scanCard,
             publicKey: publicKey)
         .chargeCard();
   }
@@ -172,6 +176,7 @@ class _Paystack {
     required Charge charge,
     required CheckoutMethod method,
     required bool fullscreen,
+    bool scanCard = false,
     bool hideEmail = false,
     bool hideAmount = false,
     Widget? logo,
@@ -202,6 +207,7 @@ class _Paystack {
         bankService: BankService(),
         cardsService: CardService(),
         method: method,
+        scanCard: scanCard,
         charge: charge,
         fullscreen: fullscreen,
         logo: logo,

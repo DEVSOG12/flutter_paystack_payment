@@ -13,14 +13,18 @@ import 'package:flutter_paystack_payment/src/ui/input/number_field.dart';
 
 class CardInput extends StatefulWidget {
   final String buttonText;
+  final bool showScanButton;
+  // final bool scanCard;
   final PaymentCard? card;
   final ValueChanged<PaymentCard?> onValidated;
 
   const CardInput({
     Key? key,
     required this.buttonText,
+    required this.showScanButton,
     required this.card,
     required this.onValidated,
+    // required this.scanCard,
   }) : super(key: key);
 
   @override
@@ -68,22 +72,24 @@ class _CardInputState extends State<CardInput> {
             onSaved: (String? value) =>
                 _card!.number = CardUtils.getCleanedNumber(value),
             // suffix:
-            suffix: GestureDetector(
-                onTap: () async {
-                  ScanCard scanCard = ScanCard();
-                  CardDetails cardDetails = await scanCard.scanCard();
-                  setState(() {
-                    numberController.text = cardDetails.cardNumber;
-                    _card!.number =
-                        CardUtils.getCleanedNumber(cardDetails.cardNumber);
-                    // _card!.expiryMonth =
-                    //     int.parse(cardDetails.expiryDate.split('/')[0]);
-                    // _card!.expiryYear =
-                    //     int.parse(cardDetails.expiryDate.split('/')[1]);
-                    // _card!.cvc = cardDetail;
-                  });
-                },
-                child: getCardIcon()),
+            suffix: widget.showScanButton
+                ? GestureDetector(
+                    onTap: () async {
+                      ScanCard scanCard = ScanCard();
+                      CardDetails cardDetails = await scanCard.scanCard();
+                      setState(() {
+                        numberController.text = cardDetails.cardNumber;
+                        _card!.number =
+                            CardUtils.getCleanedNumber(cardDetails.cardNumber);
+                        // _card!.expiryMonth =
+                        //     int.parse(cardDetails.expiryDate.split('/')[0]);
+                        // _card!.expiryYear =
+                        //     int.parse(cardDetails.expiryDate.split('/')[1]);
+                        // _card!.cvc = cardDetail;
+                      });
+                    },
+                    child: getCardIcon())
+                : getCardIcon(),
           ),
           const SizedBox(
             height: 15.0,
