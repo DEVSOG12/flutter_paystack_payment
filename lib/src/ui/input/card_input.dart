@@ -105,7 +105,7 @@ class _CardInputState extends State<CardInput> {
                   onSaved: (value) {
                     List<int> expiryDate = CardUtils.getExpiryDate(value);
                     _card!.expiryMonth = expiryDate[0];
-                    _card!.expiryYear = expiryDate[1];
+                    _card.expiryYear = expiryDate[1];
                   },
                 ),
               ),
@@ -137,7 +137,7 @@ class _CardInputState extends State<CardInput> {
     String input = CardUtils.getCleanedNumber(numberController.text);
     String cardType = _card!.getTypeForIIN(input);
     setState(() {
-      _card!.type = cardType;
+      _card.type = cardType;
     });
   }
 
@@ -164,7 +164,7 @@ class _CardInputState extends State<CardInput> {
       color: Colors.grey[600],
     );
     if (_card != null) {
-      switch (_card!.type) {
+      switch (_card.type) {
         case CardType.masterCard:
           img = 'mastercard.png';
           break;

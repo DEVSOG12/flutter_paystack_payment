@@ -213,7 +213,13 @@ abstract class BaseTransactionManager {
 
     Future<void> doit({String? result}) async {
       try {
-        Map<String, dynamic> responseMap = json.decode(result!);
+        // Sample: result =  "{\"status\":\"0\",\"bank\":\"Kuda Bank\",\"message\":\"Invalid Amount\",\"fallback\":false}"
+        result = result!.replaceAll("\\", "");
+        result = result.replaceAll("\"{", "{");
+        result = result.replaceAll("}\"", "}");
+        result = result.replaceAll("\"[", "[");
+        result = result.replaceAll("]\"", "]");
+        Map<String, dynamic> responseMap = json.decode(result);
 
         apiResponse = TransactionApiResponse.fromMap(responseMap);
       } catch (e) {

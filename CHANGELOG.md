@@ -35,3 +35,6 @@
 
 ## 0.1.3
  Topped version for dependencies
+
+## 0.1.4
+ Bumped version for dependencies

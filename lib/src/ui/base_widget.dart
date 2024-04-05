@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -13,15 +12,15 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      canPop: _onWillPop(),
       child: buildChild(context),
     );
   }
 
   Widget buildChild(BuildContext context);
 
-  Future<bool> _onWillPop() async {
+  bool _onWillPop()  {
     if (isProcessing) {
       return false;
     }
@@ -94,11 +93,13 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
                 ],
               );
 
-    bool exit = await showDialog<bool>(
-          context: context,
-          builder: (BuildContext context) => dialog,
-        ) ??
-        false;
+    bool exit = false;
+    showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) => dialog,
+    ).then((value) {
+      exit = value ?? false;
+    });
 
     if (exit) {
       // ignore: use_build_context_synchronously
@@ -108,7 +109,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
   }
 
   void onCancelPress() async {
-    bool close = await _onWillPop();
+    bool close =  _onWillPop();
     if (close) {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop(getPopReturnValue());
