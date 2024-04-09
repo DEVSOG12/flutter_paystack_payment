@@ -1,4 +1,3 @@
-
 import 'package:flutter_paystack_payment/src/common/exceptions.dart';
 import 'package:flutter_paystack_payment/src/common/string_utils.dart';
 import 'package:flutter_paystack_payment/src/models/card.dart';
@@ -94,7 +93,7 @@ class CardUtils {
   static String concatenateCardFields(PaymentCard? card) {
     // log(card!.expiryMonth.toString());
     if (card == null) {
-      throw  CardException("Card cannot be null");
+      throw CardException("Card cannot be null");
     }
 
     String? number = StringUtils.nullify(card.number);
@@ -112,8 +111,7 @@ class CardUtils {
     if (!StringUtils.isEmpty(number)) {
       return cardFields.join("*");
     } else {
-      throw  CardException(
-          'Invalid card details: Card number is empty or null');
+      throw CardException('Invalid card details: Card number is empty or null');
     }
   }
 
@@ -121,7 +119,7 @@ class CardUtils {
   /// the first number before the "/" and the last number after the "/
   static List<int> getExpiryDate(String? value) {
     if (value == null) return [-1, -1];
-    var split = value.split( RegExp(r'(\/)'));
+    var split = value.split(RegExp(r'(\/)'));
     var month = int.tryParse(split[0]) ?? -1;
     if (split.length == 1) {
       return [month, -1];

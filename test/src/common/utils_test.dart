@@ -4,8 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 // import 'package:matcher/matcher.dart';
 
 void main() {
-
-
   group("$Utils", () {
     group("#getKeyErrorMsg", () {
       test("returns a string with keyType", () {
@@ -16,7 +14,8 @@ void main() {
 
     group("#formatAmount", () {
       test("throws Error when currency formatter is not set", () {
-        expect(() => Utils.formatAmount(100), throwsA(const TypeMatcher<String>()));
+        expect(() => Utils.formatAmount(100),
+            throwsA(const TypeMatcher<String>()));
       });
 
       test("returns normally when currency formatter has been set", () {

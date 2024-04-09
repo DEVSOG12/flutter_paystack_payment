@@ -9,7 +9,8 @@ class CardInputWidget extends StatefulWidget {
   final PaymentCard? card;
   final bool scanCard;
 
-  const CardInputWidget(this.card, {Key? key, required this.scanCard}) : super(key: key);
+  const CardInputWidget(this.card, {Key? key, required this.scanCard})
+      : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api

@@ -28,7 +28,11 @@ class CardTransactionManager extends BaseTransactionManager {
       required bool scanCard})
       : assert(charge.card != null,
             'please add a card to the charge before ' 'calling chargeCard'),
-        super(charge: charge, context: context, publicKey: publicKey, scanCard: scanCard);
+        super(
+            charge: charge,
+            context: context,
+            publicKey: publicKey,
+            scanCard: scanCard);
 
   @override
   postInitiate() async {

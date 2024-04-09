@@ -20,7 +20,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
 
   Widget buildChild(BuildContext context);
 
-  bool _onWillPop()  {
+  bool _onWillPop() {
     if (isProcessing) {
       return false;
     }
@@ -109,7 +109,7 @@ abstract class BaseState<T extends StatefulWidget> extends State<T> {
   }
 
   void onCancelPress() async {
-    bool close =  _onWillPop();
+    bool close = _onWillPop();
     if (close) {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pop(getPopReturnValue());

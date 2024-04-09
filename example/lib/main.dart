@@ -459,7 +459,8 @@ class _HomePageState extends State<HomePage> {
 
   void _verifyOnServer(String? reference) async {
     var head = {
-      "Authorization": "Bearer sk_live_23f9d7b1689c5f7630e364b80359ae5cf730b2b1", // TODO Remove sensitive data
+      "Authorization":
+          "Bearer sk_live_23f9d7b1689c5f7630e364b80359ae5cf730b2b1", // TODO Remove sensitive data
     };
     _updateStatus(reference, 'Verifying...');
     String url = 'https://api.paystack.co/transaction/verify/$reference';

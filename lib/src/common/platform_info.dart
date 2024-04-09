@@ -26,7 +26,7 @@ class PlatformInfo {
       deviceId: 'test',
     );
   }
-  
+
   static Future<PlatformInfo?> getinfo() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 

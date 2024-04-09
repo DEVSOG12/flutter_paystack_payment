@@ -1,7 +1,5 @@
-
 class StringUtils {
   static bool isEmpty(String? value) {
-
     /// Recall .isEmpty < 0
     return value == null || value.isEmpty || value.toLowerCase() == "null";
   }

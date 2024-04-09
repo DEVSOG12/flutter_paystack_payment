@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 // import 'package:matcher/matcher.dart';
 
 import 'case.dart';
+
 void main() {
   group("$CardUtils", () {
     group("#isWholeNumberPositive", () {
@@ -159,8 +160,7 @@ void main() {
       }
     });
 
-
-group("#concatenateCardFields", () {
+    group("#concatenateCardFields", () {
       final cases = [
         Case(
             inp: PaymentCard(
@@ -242,7 +242,4 @@ group("#concatenateCardFields", () {
       }
     });
   });
-
-
-
 }

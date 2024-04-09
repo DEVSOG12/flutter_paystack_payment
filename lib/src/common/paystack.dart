@@ -87,7 +87,8 @@ class PaystackPayment {
       {required Charge charge, required bool scanCard}) {
     _performChecks();
 
-    return _Paystack(publicKey).chargeCard(context: context, charge: charge, scanCard: scanCard);
+    return _Paystack(publicKey)
+        .chargeCard(context: context, charge: charge, scanCard: scanCard);
   }
 
   /// Make payment using Paystack's checkout form. The plugin will handle the whole
@@ -161,7 +162,9 @@ class _Paystack {
   _Paystack(this.publicKey);
 
   Future<CheckoutResponse> chargeCard(
-      {required BuildContext context, required Charge charge, required bool scanCard}) {
+      {required BuildContext context,
+      required Charge charge,
+      required bool scanCard}) {
     return CardTransactionManager(
             service: CardService(),
             charge: charge,
